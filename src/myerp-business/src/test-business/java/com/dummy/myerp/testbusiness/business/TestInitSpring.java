@@ -23,7 +23,12 @@ public class TestInitSpring extends BusinessTestCase {
      */
     @Test
     public void testInit() {
+        // arrange
         SpringRegistry.init();
+
+        // act
+
+        // assert
         assertNotNull(SpringRegistry.getBusinessProxy());
         assertNotNull(SpringRegistry.getTransactionManager());
     }

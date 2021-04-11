@@ -30,10 +30,10 @@ public class EcritureComptableTest {
         vEcriture.setLibelle("Equilibrée");
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
         //vEcriture.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
-        vEcriture.getListLigneEcriture().add(this.createLigne(1, null, "33"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, null, "200.50"));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "301"));
         //vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", "7"));
-        vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "301", null));
         // assert
         Assert.assertTrue(vEcriture.toString(), vEcriture.isEquilibree());
     }
@@ -50,13 +50,41 @@ public class EcritureComptableTest {
         vEcriture.setLibelle("Non équilibrée");
         vEcriture.getListLigneEcriture().add(this.createLigne(1, "10", null));
         //vEcriture.getListLigneEcriture().add(this.createLigne(1, "20", "1"));
-        vEcriture.getListLigneEcriture().add(this.createLigne(1, null, "1"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "11", "1"));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "30"));
         //vEcriture.getListLigneEcriture().add(this.createLigne(2, "1", "2"));
-        vEcriture.getListLigneEcriture().add(this.createLigne(2, "1", null));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "12", "33"));
 
         //assert
-        Assert.assertTrue(vEcriture.toString(), vEcriture.isEquilibree());
+        Assert.assertFalse(vEcriture.toString(), vEcriture.isEquilibree());
     }
+
+
+
+    @Test
+    public void getTotalDebit(){
+        // arrange
+        EcritureComptable vEcriture;
+        vEcriture = new EcritureComptable();
+        BigDecimal vRetourDebit = BigDecimal.ZERO;
+
+        // act
+        vEcriture.getListLigneEcriture().clear();
+        vEcriture.setLibelle("Non équilibrée");
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, "10", null));
+        //vEcriture.getListLigneEcriture().add(this.createLigne(1, "20", "1"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(1, null, "101"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "30"));
+        //vEcriture.getListLigneEcriture().add(this.createLigne(2, "1", "2"));
+        vEcriture.getListLigneEcriture().add(this.createLigne(2, "12", "33"));
+        vRetourDebit =vEcriture.getTotalDebit();
+        //Integer.parseInt(vRetourDebit)
+
+        // assert
+        Assert.assertEquals(22.00,vRetourDebit.longValue(),0.01);
+    }
+
+
+
 
 }
