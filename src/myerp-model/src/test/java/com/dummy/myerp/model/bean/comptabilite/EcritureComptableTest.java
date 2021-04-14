@@ -34,6 +34,7 @@ public class EcritureComptableTest {
         vEcriture.getListLigneEcriture().add(this.createLigne(2, null, "301"));
         //vEcriture.getListLigneEcriture().add(this.createLigne(2, "40", "7"));
         vEcriture.getListLigneEcriture().add(this.createLigne(2, "301", null));
+
         // assert
         Assert.assertTrue(vEcriture.toString(), vEcriture.isEquilibree());
     }
@@ -60,7 +61,6 @@ public class EcritureComptableTest {
     }
 
 
-
     @Test
     public void getTotalDebit(){
         // arrange
@@ -83,8 +83,5 @@ public class EcritureComptableTest {
         // assert
         Assert.assertEquals(22.00,vRetourDebit.longValue(),0.01);
     }
-
-
-
 
 }

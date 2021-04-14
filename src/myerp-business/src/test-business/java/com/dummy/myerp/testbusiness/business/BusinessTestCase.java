@@ -3,11 +3,13 @@ package com.dummy.myerp.testbusiness.business;
 
 import com.dummy.myerp.business.contrat.BusinessProxy;
 import com.dummy.myerp.business.impl.TransactionManager;
+import org.springframework.boot.test.context.SpringBootTest;
 
 
 /**
  * Classe mère des classes de test d'intégration de la couche Business
  */
+
 public abstract class BusinessTestCase {
 
     static {

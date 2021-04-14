@@ -2,11 +2,11 @@ package com.dummy.myerp.testbusiness.business;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.dummy.myerp.business.contrat.BusinessProxy;
 import com.dummy.myerp.business.impl.TransactionManager;
-
 
 /**
  * Registre des Beans Spring.
@@ -28,14 +28,12 @@ public final class SpringRegistry {
     /** Le context spring de l'application */
     private ApplicationContext contextAppli;
 
-
     // ==================== ID des Beans Spring ====================
-
 
     /**
      * Constructeur.
      */
-    private SpringRegistry() {
+    SpringRegistry() {
         super();
         SpringRegistry.LOGGER.debug("[DEBUT] SpringRegistry() - Initialisation du contexte Spring");
         this.contextAppli = new ClassPathXmlApplicationContext(SpringRegistry.CONTEXT_APPLI_LOCATION);
@@ -57,7 +55,7 @@ public final class SpringRegistry {
      * @return ApplicationContext
      */
     public static final ApplicationContext init() {
-        // le fait d'appeler cette méthode, déclanche l'appel des initialisation static et donc le chargement du context
+        // le fait d'appeler cette méthode, déclanche l'appel des initialisations static et donc le chargement du context
         return getInstance().contextAppli;
     }
 
@@ -74,7 +72,6 @@ public final class SpringRegistry {
         return vBean;
     }
 
-
     /**
      * Renvoie l'instance de {@link BusinessProxy} de l'application
      *
@@ -83,7 +80,6 @@ public final class SpringRegistry {
     public static BusinessProxy getBusinessProxy() {
         return (BusinessProxy) SpringRegistry.getBean("BusinessProxy");
     }
-
 
     /**
      * Renvoie l'instance de {@link TransactionManager} de l'application
