@@ -5,6 +5,7 @@ services:
     ports:
       #- "127.0.0.1:9032:5432"
       - "9032:5432"
+      #- jdbc://192.168.99.100:9032:5432/db_myerp
     volumes:
 #      - "./data/db:/var/lib/postgresql/data"
        - "./init/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
@@ -12,4 +13,3 @@ services:
       - POSTGRES_DB=db_myerp
       - POSTGRES_USER=usr_myerp
       - POSTGRES_PASSWORD=myerp
-      
