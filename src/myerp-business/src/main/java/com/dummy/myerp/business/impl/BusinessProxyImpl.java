@@ -58,6 +58,10 @@ public class BusinessProxyImpl implements BusinessProxy {
         super();
     }
 
+    public static BusinessProxyImpl getInstance(String s, TransactionManager transactionManager) {
+        return null;
+    }
+
 
     // ==================== Getters/Setters ====================
     @Override
