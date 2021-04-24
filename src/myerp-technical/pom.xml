@@ -37,6 +37,8 @@
     <!-- Properties -->
     <!-- =============================================================== -->
     <properties>
+        <sonar.projectKey>projet_B4_FR-myerp-technical</sonar.projectKey>
+        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../myerp-business/target/site/jacoco-aggregate/jacoco.xml, ${basedir}/../myerp-consumer/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
 
@@ -63,6 +65,7 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
         </dependency>
+
 
 
         <!-- ===== Apache commons ===== -->
@@ -101,9 +104,33 @@
 
         <!-- ========== Test Dependencies ========== -->
         <!-- ===== Tests ===== -->
+        <!--<dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
 

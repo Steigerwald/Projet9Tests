@@ -36,6 +36,8 @@
     <!-- Properties -->
     <!-- =============================================================== -->
     <properties>
+        <sonar.projectKey>projet_B4_FR-myerp-consumer</sonar.projectKey>
+        <sonar.coverage.jacoco.xmlReportPaths>${basedir}\target\site\jacoco\jacoco.xml, ${basedir}/../myerp-business/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
 
@@ -49,19 +51,53 @@
             <artifactId>myerp-model</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>myerp-technical</artifactId>
+        </dependency>
+
         <!-- spring-jdbc : commons-exceptions, datasource management -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
 
-
         <!-- ========== Test Dependencies ========== -->
+        <!--<dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- ===== Database (pour les tests) ===== -->
         <!-- Pool de connexion -->
@@ -77,49 +113,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
-    <!-- =============================================================== -->
-    <!-- Profiles -->
-    <!-- =============================================================== -->
-    <profiles>
-        <!-- Profile utilisé pour lancer les tests d'intégration de la couche Consumer -->
-        <profile>
-            <id>test-consumer</id>
-            <build>
-                <plugins>
-                    <!-- Ajout du répertoire src/test-consumer/java en tant que source de test du module -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-test-source</id>
-                                <phase>generate-test-sources</phase>
-                                <goals>
-                                    <goal>add-test-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/test-consumer/java</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                    </testResource>
-                    <testResource>
-                        <directory>src/test-consumer/resources</directory>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-    </profiles>
-
 
     <!-- =============================================================== -->
     <!-- Build -->
