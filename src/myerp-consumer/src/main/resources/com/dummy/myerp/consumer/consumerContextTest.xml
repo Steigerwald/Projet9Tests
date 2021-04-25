@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- ====================   Consumer   ==================== -->
+    <!-- AbstractDbConsumer -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="com.dummy.myerp.consumer.db.AbstractDbConsumer"/>
+        <property name="targetMethod" value="configure"/>
+        <property name="arguments">
+            <map>
+                <entry value-ref="dataSourceMYERP">
+                    <key>
+                        <value type="com.dummy.myerp.consumer.db.DataSourcesEnum">MYERP</value>
+                    </key>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+    <!-- ==================== Consumer-Proxy ==================== -->
+
+    <!-- ConsumerHelper -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="com.dummy.myerp.consumer.ConsumerHelper"/>
+        <property name="targetMethod" value="configure"/>
+        <property name="arguments">
+            <list>
+                <ref bean="daoProxy"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- DaoProxy -->
+    <bean id="daoProxy" class="com.dummy.myerp.consumer.dao.impl.DaoProxyImpl" factory-method="getInstance">
+        <property name="comptabiliteDao" ref="comptabiliteDaoImpl"/>
+    </bean>
+
+    <bean id="dataSourceMYERP" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://127.0.0.1:9032/db_myerp" />
+        <property name="username" value="usr_myerp" />
+        <property name="password" value="myerp" />
+        <property name="initialSize" value="1" />
+        <property name="maxOpenPreparedStatements" value="5" />
+    </bean>
+
+    <bean id="txManagerMYERP" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceMYERP"/>
+    </bean>
+
+
+    <!-- ========== SQL ========== -->
+    <import resource="sqlContext.xml"/>
+</beans>

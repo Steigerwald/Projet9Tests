@@ -30,11 +30,11 @@
     <!-- Distrubution management -->
     <!-- =============================================================== -->
     <distributionManagement>
-        <site>
+        <!--<site>
             <id>site</id>
             <name>site-doc</name>
             <url>file://${project.build.directory}/site-doc/</url>
-        </site>
+        </site>-->
     </distributionManagement>
 
 
@@ -139,8 +139,6 @@
         <profile>
             <id>test-consumer</id>
         </profile>
-
-
 
     </profiles>
 
