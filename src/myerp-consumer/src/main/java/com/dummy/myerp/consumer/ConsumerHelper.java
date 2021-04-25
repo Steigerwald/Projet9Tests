@@ -8,6 +8,10 @@ import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
  */
 public abstract class ConsumerHelper {
 
+    private ConsumerHelper() {
+        throw new IllegalStateException("Helper class");
+    }
+
     /** Le DaoProxy à utiliser pour accéder aux autres classes de DAO */
     private static DaoProxy daoProxy;
 

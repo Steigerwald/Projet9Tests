@@ -3,6 +3,7 @@ package com.dummy.myerp.business.impl;
 import com.dummy.myerp.business.contrat.BusinessProxy;
 import com.dummy.myerp.business.contrat.manager.ComptabiliteManager;
 import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
+import com.dummy.myerp.business.util.Constant;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 
 
@@ -12,27 +13,38 @@ import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 public class BusinessProxyImpl implements BusinessProxy {
 
     // ==================== Attributs Static ====================
+    /**
+     * Instance unique de la classe (design pattern Singleton)
+     */
+    private static final BusinessProxyImpl INSTANCE = new BusinessProxyImpl();
+
+
+    // ==================== Attributs ====================
     /** Le Proxy d'accès à la couche Consumer-DAO */
     private static DaoProxy daoProxy;
 
 
-    // ==================== Attributs ====================
-    /** The Comptabilite manager. */
+    // ==================== Constructeurs ====================
+    /**
+     * The Comptabilite manager.
+     */
     private ComptabiliteManager comptabiliteManager = new ComptabiliteManagerImpl();
 
-
-    // ==================== Constructeurs ====================
-    /** Instance unique de la classe (design pattern Singleton) */
-    private static final BusinessProxyImpl INSTANCE = new BusinessProxyImpl();
+    /**
+     * Constructeur.
+     */
+    protected BusinessProxyImpl() {
+        super();
+    }
 
     /**
      * Renvoie l'instance unique de la classe (design pattern Singleton).
      *
      * @return {@link BusinessProxyImpl}
      */
-    protected static BusinessProxyImpl getInstance() {
+    public static BusinessProxyImpl getInstance() {
         if (daoProxy == null) {
-            throw new UnsatisfiedLinkError("La classe BusinessProxyImpl n'a pas été initialisée.");
+            throw new UnsatisfiedLinkError(Constant.BUSINESS_PROXY_NOT_INTIALIZED);
         }
         return BusinessProxyImpl.INSTANCE;
     }
@@ -40,7 +52,7 @@ public class BusinessProxyImpl implements BusinessProxy {
     /**
      * Renvoie l'instance unique de la classe (design pattern Singleton).
      *
-     * @param pDaoProxy -
+     * @param pDaoProxy           -
      * @param pTransactionManager -
      * @return {@link BusinessProxyImpl}
      */
@@ -50,18 +62,6 @@ public class BusinessProxyImpl implements BusinessProxy {
         AbstractBusinessManager.configure(BusinessProxyImpl.INSTANCE, pDaoProxy, pTransactionManager);
         return BusinessProxyImpl.INSTANCE;
     }
-
-    /**
-     * Constructeur.
-     */
-    protected BusinessProxyImpl() {
-        super();
-    }
-
-    public static BusinessProxyImpl getInstance(String s, TransactionManager transactionManager) {
-        return null;
-    }
-
 
     // ==================== Getters/Setters ====================
     @Override

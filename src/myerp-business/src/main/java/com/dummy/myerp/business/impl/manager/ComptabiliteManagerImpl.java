@@ -1,22 +1,22 @@
 package com.dummy.myerp.business.impl.manager;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-
+import com.dummy.myerp.business.contrat.manager.ComptabiliteManager;
+import com.dummy.myerp.business.impl.AbstractBusinessManager;
+import com.dummy.myerp.business.util.Constant;
+import com.dummy.myerp.model.bean.comptabilite.*;
+import com.dummy.myerp.technical.exception.FunctionalException;
+import com.dummy.myerp.technical.exception.NotFoundException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.transaction.TransactionStatus;
-import com.dummy.myerp.business.contrat.manager.ComptabiliteManager;
-import com.dummy.myerp.business.impl.AbstractBusinessManager;
-import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
-import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
-import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
-import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
-import com.dummy.myerp.technical.exception.FunctionalException;
-import com.dummy.myerp.technical.exception.NotFoundException;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -60,7 +60,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
      */
     // TODO à tester
     @Override
-    public synchronized void addReference(EcritureComptable pEcritureComptable) {
+    public synchronized void addReference(EcritureComptable pEcritureComptable) throws FunctionalException {
         // TODO à implémenter
         // Bien se réferer à la JavaDoc de cette méthode !
         /* Le principe :
@@ -74,6 +74,41 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
                 4.  Enregistrer (insert/update) la valeur de la séquence en persitance
                     (table sequence_ecriture_comptable)
          */
+        if(pEcritureComptable.getDate() == null) {
+            throw new FunctionalException(Constant.ECRITURE_COMPTABLE_DATE_NULL_FOR_ADD_REFERENCE);
+        }
+        if(pEcritureComptable.getJournal() == null || pEcritureComptable.getJournal().getCode() == null) {
+            throw new FunctionalException(Constant.ECRITURE_COMPTABLE_JOURNAL_NULL_FOR_ADD_REFERENCE);
+        }
+
+        LocalDate ecritureDate = pEcritureComptable.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        SequenceEcritureComptable sequenceEcritureComptable;
+        boolean isSequenceAlreadyExist = true;
+        try {
+            sequenceEcritureComptable = getDaoProxy().getComptabiliteDao().getSequenceByYearAndJournalCode(ecritureDate.getYear(), pEcritureComptable.getJournal().getCode());
+        } catch (NotFoundException e) {
+            sequenceEcritureComptable = new SequenceEcritureComptable(ecritureDate.getYear(), pEcritureComptable.getJournal(), 0);
+            isSequenceAlreadyExist = false;
+        }
+
+        sequenceEcritureComptable.setDerniereValeur(sequenceEcritureComptable.getDerniereValeur() + 1);
+        StringBuilder formattedSequenceNumberBuilder = new StringBuilder(sequenceEcritureComptable.getDerniereValeur().toString());
+        while (formattedSequenceNumberBuilder.length() < 5) {
+            formattedSequenceNumberBuilder.insert(0, "0");
+        }
+        String formattedSequenceNumber = formattedSequenceNumberBuilder.toString();
+
+        String reference = sequenceEcritureComptable.getJournal().getCode() + "-" + sequenceEcritureComptable.getAnnee().toString() + "/" + formattedSequenceNumber;
+        pEcritureComptable.setReference(reference);
+
+        if(isSequenceAlreadyExist) {
+            getDaoProxy().getComptabiliteDao().updateSequenceEcritureComptable(sequenceEcritureComptable);
+        } else {
+            getDaoProxy().getComptabiliteDao().insertNewSequence(sequenceEcritureComptable);
+        }
+
+        pEcritureComptable.setReference(reference);
+
     }
 
     /**
