@@ -14,6 +14,7 @@
 
     <!-- ===== General information ===== -->
     <name>MyERP</name>
+
     <description>
         ERP sur-mesure pour Dummy...
     </description>
@@ -30,11 +31,11 @@
     <!-- Distrubution management -->
     <!-- =============================================================== -->
     <distributionManagement>
-        <!--<site>
+        <site>
             <id>site</id>
             <name>site-doc</name>
             <url>file://${project.build.directory}/site-doc/</url>
-        </site>-->
+        </site>
     </distributionManagement>
 
 
@@ -49,14 +50,33 @@
         <!-- Tell sonar where to look for the coverage file. Property inherited by submodules -->
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 
-
         <!-- ===== Application properties ===== -->
         <application.name>MyERP</application.name>
 
         <!-- ===== Version properties ===== -->
         <log4j.version>2.8.1</log4j.version>
-        <spring.version>5.2.4.RELEASE</spring.version>
-        <junit.version>5.6.0</junit.version>
+        <spring.version>4.3.7.RELEASE</spring.version>
+
+        <!-- Avant -->
+        <sonar.projectKey>RomainDemellier_Projet_9</sonar.projectKey>
+        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
+        <sonar.organization>romaindemellier</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>34a637bb3516ccd2e03327d9a7246592cdceccf2</sonar.login>
+        <sonar.language>java</sonar.language>
+        <!-- -->
+
+        <!-- Après -->
+        <aggregate.report.dir>myerp-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+        <!-- -->
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.home>/usr/lib/jvm/java-8-openjdk-amd64</java.home>
+
+        <jacoco-maven-plugin.version>0.7.4.201502262128</jacoco-maven-plugin.version>
+        <jacoco.version>0.5.7.201204190339</jacoco.version>
 
     </properties>
 
@@ -118,7 +138,9 @@
             </build>
         </profile>
 
-        <profile>
+        <!-- -->
+        <!-- Profile utilisé par le plugin m2e d'Eclipse -->
+        <!--<profile>
             <id>m2e</id>
             <activation>
                 <property>
@@ -128,7 +150,7 @@
             <properties>
                 <maven.build.timestamp>DD/MM/YYYY</maven.build.timestamp>
             </properties>
-        </profile>
+        </profile>-->
 
         <!-- Profile utilisé pour lancer les tests d'intégration de la couche Business -->
         <profile>
@@ -139,7 +161,6 @@
         <profile>
             <id>test-consumer</id>
         </profile>
-
     </profiles>
 
 
@@ -230,19 +251,6 @@
                 <version>4.2.0.Final</version>
             </dependency>
 
-            <dependency>
-                <groupId>javax.el</groupId>
-                <artifactId>javax.el-api</artifactId>
-                <version>3.0.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.glassfish.web</groupId>
-                <artifactId>javax.el</artifactId>
-                <version>2.2.6</version>
-            </dependency>
-
-
 
             <!-- ===== Apache Commons ===== -->
             <dependency>
@@ -313,13 +321,12 @@
             </dependency>
 
             <!-- ===== Test unitaires ===== -->
-            <!--<dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-                <version>${junit.version}</version>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-library</artifactId>
+                <version>1.2.1</version>
                 <scope>test</scope>
-            </dependency>-->
-
+            </dependency>
             <!-- https://mvnrepository.com/artifact/junit/junit -->
             <dependency>
                 <groupId>junit</groupId>
@@ -328,42 +335,28 @@
                 <scope>test</scope>
             </dependency>
 
-
-
+            <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit.version}</version>
+                <version>5.7.0</version>
                 <scope>test</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-junit-jupiter</artifactId>
-                <version>3.3.3</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-inline</artifactId>
-                <version>3.3.3</version>
-                <scope>test</scope>
-            </dependency>
-
+            <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
+                <version>5.3.5</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>3.15.0</version>
-                <scope>test</scope>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -413,7 +406,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.0</version>
+                    <version>3.1.1</version>
                 </plugin>
 
                 <!-- ===== Création des JAR ===== -->
@@ -502,48 +495,6 @@
                     <version>3.0.0</version>
                 </plugin>
 
-                <!-- ===== Ancienne version Jacoco pour avoir le coverage des tests ===== -->
-                    <!--<plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.2</version>
-                        <executions>
-                            <execution>
-                                <id>default-prepare-agent</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>default-report</id>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>default-check</id>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>-->
-                                        <!--  implementation is needed only for Maven 2  -->
-                                        <!--<rule implementation="org.jacoco.maven.RuleConfiguration">
-                                            <element>BUNDLE</element>
-                                            <limits>-->
-                                                <!--  implementation is needed only for Maven 2  -->
-                                                <!--<limit implementation="org.jacoco.report.check.Limit">
-                                                    <counter>COMPLEXITY</counter>
-                                                    <value>COVEREDRATIO</value>
-                                                    <minimum>0.60</minimum>
-                                                </limit>
-                                            </limits>
-                                        </rule>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>-->
 
                 <!-- Sonarcloud + jacoco -->
                 <plugin>
