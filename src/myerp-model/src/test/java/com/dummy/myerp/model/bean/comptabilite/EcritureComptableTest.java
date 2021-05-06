@@ -40,8 +40,8 @@ public class EcritureComptableTest {
     }
 
 
-        @Test
-        public void isNotEquilibree() {
+    @Test
+    public void isNotEquilibree() {
         // arrange
             EcritureComptable vEcriture;
             vEcriture = new EcritureComptable();

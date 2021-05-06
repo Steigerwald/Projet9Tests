@@ -85,7 +85,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
         SequenceEcritureComptable sequenceEcritureComptable;
         boolean isSequenceAlreadyExist = true;
         try {
-            sequenceEcritureComptable = getDaoProxy().getComptabiliteDao().getSequenceByYearAndJournalCode(ecritureDate.getYear(), pEcritureComptable.getJournal().getCode());
+            sequenceEcritureComptable = getDaoProxy().getComptabiliteDao().getSequenceByYearAndJournalCode(ecritureDate.getYear(),pEcritureComptable.getJournal().getCode());
         } catch (NotFoundException e) {
             sequenceEcritureComptable = new SequenceEcritureComptable(ecritureDate.getYear(), pEcritureComptable.getJournal(), 0);
             isSequenceAlreadyExist = false;
