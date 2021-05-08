@@ -7,6 +7,7 @@ import config.BusinessContextBeans;
 import com.dummy.myerp.business.util.Constant;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,12 +29,12 @@ public class BusinessProxyImplTest {
     private BusinessProxy objectToTest;
 
     @BeforeEach
-    void init() {
+    public void init() {
         objectToTest = BusinessProxyImpl.getInstance(daoProxy, transactionManager);
     }
 
     @Test
-    void getInstance_configuredBusinessProxy_returnBusinessProxy() {
+    public void getInstance_configuredBusinessProxy_returnBusinessProxy() {
 
         objectToTest = BusinessProxyImpl.getInstance();
 
@@ -41,15 +42,15 @@ public class BusinessProxyImplTest {
     }
 
     @Test
-    void getInstance_notConfiguredBusinessProxy_ThrowException() {
-        BusinessProxyImpl.getInstance(null, null);
+    public void getInstance_notConfiguredBusinessProxy_ThrowException() {
+        BusinessProxyImpl.getInstance(null,null);
         Assertions.assertThatThrownBy(BusinessProxyImpl::getInstance)
                 .isInstanceOf(UnsatisfiedLinkError.class)
                 .hasMessageContaining(Constant.BUSINESS_PROXY_NOT_INTIALIZED);
     }
 
     @Test
-    void getComptabiliteManagerTest() {
+    public void getComptabiliteManagerTest() {
 
         Assertions.assertThat(objectToTest.getComptabiliteManager()).isNotNull();
     }
