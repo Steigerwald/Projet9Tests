@@ -48,7 +48,7 @@
         <maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
         <buildTime>${maven.build.timestamp}</buildTime>
         <!-- Tell sonar where to look for the coverage file. Property inherited by submodules -->
-        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+        <!--<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>-->
 
         <!-- ===== Application properties ===== -->
         <application.name>MyERP</application.name>
@@ -69,7 +69,7 @@
         <!-- -->
 
         <!-- Après -->
-        <aggregate.report.dir>myerp-coverage/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+        <aggregate.report.dir>myerp-model/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
         <!-- -->
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -363,6 +363,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.sonar-plugins.java</groupId>
+                <artifactId>sonar-jacoco-plugin</artifactId>
+                <version>2.3</version>
             </dependency>
 
         </dependencies>
