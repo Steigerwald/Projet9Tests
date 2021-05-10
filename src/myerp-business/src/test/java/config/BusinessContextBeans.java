@@ -7,11 +7,14 @@ import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 import com.dummy.myerp.consumer.dao.impl.DaoProxyImpl;
 import com.dummy.myerp.consumer.dao.impl.db.dao.ComptabiliteDaoImpl;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
 
 @Configuration
 public class BusinessContextBeans {
