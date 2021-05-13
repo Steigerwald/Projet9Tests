@@ -1,6 +1,8 @@
 package com.dummy.myerp.model.bean.comptabilite;
 
+
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;

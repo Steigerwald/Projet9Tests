@@ -1,5 +1,6 @@
 package com.dummy.myerp.business.impl.manager;
 
+
 import com.dummy.myerp.business.contrat.manager.ComptabiliteManager;
 import com.dummy.myerp.business.impl.AbstractBusinessManager;
 import com.dummy.myerp.business.util.Constant;

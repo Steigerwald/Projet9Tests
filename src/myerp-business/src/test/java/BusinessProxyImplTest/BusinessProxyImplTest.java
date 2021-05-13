@@ -7,10 +7,12 @@ import config.BusinessContextBeans;
 import com.dummy.myerp.business.util.Constant;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -19,13 +21,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {BusinessContextBeans.class})
 public class BusinessProxyImplTest {
 
+    Logger logger = (Logger) LoggerFactory.getLogger(BusinessProxyImplTest.class);
+
     @Autowired
     private DaoProxy daoProxy;
 
     @Autowired
     private TransactionManager transactionManager;
 
-
+    @Autowired
     private BusinessProxy objectToTest;
 
     @BeforeEach
@@ -36,8 +40,8 @@ public class BusinessProxyImplTest {
     @Test
     public void getInstance_configuredBusinessProxy_returnBusinessProxy() {
 
-        objectToTest = BusinessProxyImpl.getInstance();
-
+        //objectToTest = BusinessProxyImpl.getInstance();
+        logger.error(" la valeur de objectToTest  "+objectToTest);
         Assertions.assertThat(objectToTest).isNotNull();
     }
 

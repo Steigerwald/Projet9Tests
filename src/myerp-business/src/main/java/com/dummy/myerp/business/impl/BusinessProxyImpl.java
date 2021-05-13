@@ -16,7 +16,7 @@ public class BusinessProxyImpl implements BusinessProxy {
     /**
      * Instance unique de la classe (design pattern Singleton)
      */
-    private static final BusinessProxyImpl INSTANCE = new BusinessProxyImpl();
+    private final static BusinessProxyImpl INSTANCE = new BusinessProxyImpl();
 
 
     // ==================== Attributs ====================
@@ -33,7 +33,7 @@ public class BusinessProxyImpl implements BusinessProxy {
     /**
      * Constructeur.
      */
-    protected BusinessProxyImpl() {
+    public BusinessProxyImpl() {
         super();
     }
 
