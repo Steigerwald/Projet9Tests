@@ -9,7 +9,7 @@
     <!-- ===== Maven ===== -->
     <groupId>com.dummy.myerp</groupId>
     <artifactId>myerp</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <!-- ===== General information ===== -->
@@ -50,7 +50,8 @@
         <maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
         <buildTime>${maven.build.timestamp}</buildTime>
         <!-- Tell sonar where to look for the coverage file. Property inherited by submodules -->
-        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+        <!--<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>-->
+        <sonar.jacoco.xmlReportPaths>${project.basedir}/../path_to_module_with_report/target/site/jacoco-aggregate/jacoco.xml</sonar.jacoco.xmlReportPaths>
 
         <!-- ===== Application properties ===== -->
         <application.name>MyERP</application.name>
@@ -457,7 +458,7 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.3.0.603</version>
+                <version>3.8.0.2131</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
