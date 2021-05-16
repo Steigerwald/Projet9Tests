@@ -181,24 +181,22 @@
                 <artifactId>myerp-technical</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>myerp-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>myerp-consumer</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>myerp-business</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
             <!-- ========== Libraries ========== -->
             <!-- ===== Log4j ===== -->
             <dependency>
@@ -206,19 +204,16 @@
                 <artifactId>log4j-api</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-            <!-- Commons Logging Bridge -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-jcl</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-            <!-- Log4j 2 SLF4J Binding -->
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j-impl</artifactId>
@@ -238,7 +233,6 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>4.2.0.Final</version>
             </dependency>
-
 
             <!-- ===== Apache Commons ===== -->
             <dependency>
@@ -315,31 +309,24 @@
                 <version>1.2.1</version>
                 <scope>test</scope>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/junit/junit -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.13.2</version>
                 <scope>test</scope>
             </dependency>
-
-            <!-- Déclaration de la dépendance vers JUnit -->
-                <dependency>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter</artifactId>
-                    <version>5.5.1</version>
-                    <scope>test</scope>
-                </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>5.5.1</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
                 <version>5.7.0</version>
                 <scope>test</scope>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
@@ -353,19 +340,23 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.1.1</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
             </dependency>
-
             <dependency>
                 <groupId>org.codehaus.sonar-plugins.java</groupId>
                 <artifactId>sonar-jacoco-plugin</artifactId>
                 <version>2.3</version>
             </dependency>
-
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugin-tools/maven-plugin-annotations -->
+            <dependency>
+                <groupId>org.apache.maven.plugin-tools</groupId>
+                <artifactId>maven-plugin-annotations</artifactId>
+                <version>3.6.0</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -386,12 +377,6 @@
 
     <build>
         <plugins>
-
-            <!-- Pour être compatible avec JUnit 5 -->
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -417,7 +402,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -430,8 +414,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>-->
-
-                        <!--
+            <!--
  Include Integration Test class
   -->
             <!--<includes>
@@ -467,6 +450,19 @@
                         <phase>site</phase>
                         <goals>
                             <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.3.0.603</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sonar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -527,16 +523,15 @@
             </plugin>
 
             <!-- ===== Création du rapport des tests unitaires (JUnit) ===== -->
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.20</version>
                 <configuration>
                     <linkXRef>false</linkXRef>
                 </configuration>
-                <reportSets>-->
-                    <!-- reportSet par défaut, exécuté dans tous les modules (non-aggregate reports) -->
-                    <!--<reportSet>
+                <reportSets>
+                    <reportSet>
                         <reports>
                             <report>report-only</report>
                         </reports>
@@ -552,7 +547,7 @@
                         </configuration>
                     </reportSet>
                 </reportSets>
-            </plugin>-->
+            </plugin>
 
             <!-- ===== Génération de la Javadoc ===== -->
             <plugin>
@@ -560,11 +555,8 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <!-- Définition de l'exécutable de javadoc à utiliser si on ne prend pas celui par défaut -->
-                    <!--javadocExecutable>/opt/java/jdk8/bin/javadoc</javadocExecutable -->
                     <quiet>true</quiet>
                     <locale>fr</locale>
-                    <!-- Définition des "groupes" de javadoc -->
                     <groups>
                         <group>
                             <title>Application</title>
@@ -573,16 +565,13 @@
                     </groups>
                 </configuration>
                 <reportSets>
-                    <!-- reportSet par défaut, exécuté dans tous les modules (non-aggregate reports) -->
                     <reportSet>
                         <reports>
                             <report>javadoc</report>
                         </reports>
                     </reportSet>
-                    <!-- reportSet d'agrégation des rapports des sous-modules -->
                     <reportSet>
                         <id>aggregate</id>
-                        <!-- don't run aggregate in child modules -->
                         <inherited>false</inherited>
                         <reports>
                             <report>aggregate</report>
@@ -601,19 +590,15 @@
                     <linkXRef>false</linkXRef>
                 </configuration>
                 <reportSets>
-                    <!-- reportSet par défaut, exécuté dans tous les modules (non-aggregate reports) -->
                     <reportSet>
                         <reports>
                             <report>checkstyle</report>
                         </reports>
                     </reportSet>
-                    <!-- reportSet d'agrégation des rapports des sous-modules -->
                     <reportSet>
                         <id>checkstyle-aggregate</id>
-                        <!-- don't run aggregate in child modules -->
                         <inherited>false</inherited>
                         <configuration>
-                            <!-- Skip checktyle execution will only scan the outputFile. -->
                             <skipExec>true</skipExec>
                         </configuration>
                         <reports>

@@ -124,18 +124,6 @@
             <artifactId>build-helper-maven-plugin</artifactId>
             <version>3.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <!--<dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
-            <scope>provided</scope>
-        </dependency>-->
     </dependencies>
 
     <!-- =============================================================== -->
@@ -255,10 +243,10 @@
             </plugin>
 
             <!-- Pour être compatible avec JUnit 5 -->
-            <plugin>
+            <!--<plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
-            </plugin>
+            </plugin>-->
 
         </plugins>
     </build>

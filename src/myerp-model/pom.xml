@@ -41,7 +41,6 @@
         <sonar.coverage.jacoco.xmlReportPaths>${basedir}\target\site\jacoco\jacoco.xml, ${basedir}/../myerp-business/target/site/jacoco-aggregate/jacoco.xml, ${basedir}/../myerp-consumer/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
-
     <!-- =============================================================== -->
     <!-- Dependencies -->
     <!-- =============================================================== -->

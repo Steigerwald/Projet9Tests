@@ -1,5 +1,6 @@
 package com.dummy.myerp.business.manager;
 
+import BusinessProxyImplTest.BusinessProxyImplTest;
 import com.dummy.myerp.business.contrat.BusinessProxy;
 import com.dummy.myerp.business.impl.TransactionManager;
 import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
@@ -17,12 +18,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.test.context.ContextConfiguration;
-//import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+//import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.TransactionStatus;
@@ -37,33 +44,35 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-@ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {BusinessContextBeans.class})
+//@ContextConfiguration(classes = {BusinessContextBeans.class})
 public class ComptabiliteManagerImplTest {
+/*
+    Logger logger = (Logger) LoggerFactory.getLogger(ComptabiliteManagerImplTest.class);
 
-    @Autowired
-    public BusinessProxy businessProxy;
+    @Mock
+    private BusinessProxy businessProxy;
 
-    @Autowired
-    public DaoProxy daoProxy;
+    @Mock
+    private DaoProxy daoProxy;
 
-    @Autowired
-    public TransactionManager transactionManager;
+    @Mock
+    private TransactionManager transactionManager;
 
-    @Autowired
-    public ComptabiliteDao comptabiliteDao;
+    @Mock
+    private ComptabiliteDao comptabiliteDao;
 
-
+    @Mock
     public ComptabiliteManagerImpl objectToTest;
 
+    @Mock
     public EcritureComptable sampleEcritureComptable;
 
     @BeforeEach
-    public void init() {
+    public void init() throws FunctionalException {
+        //objectToTest.configure(businessProxy, daoProxy, transactionManager);
         objectToTest = new ComptabiliteManagerImpl();
-        ComptabiliteManagerImpl.configure(businessProxy, daoProxy, transactionManager);
-
+        logger.error(" la valeur de getListComptable de objectToTest  "+objectToTest.getListCompteComptable());
         sampleEcritureComptable = new EcritureComptable();
         sampleEcritureComptable.setId(1);
         sampleEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
@@ -76,24 +85,47 @@ public class ComptabiliteManagerImplTest {
         sampleEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
                 new BigDecimal(123)));
+        objectToTest.insertEcritureComptable(sampleEcritureComptable);
+        logger.error(" la valeur de ligneEcritureComptable de sampleEcritureComptable  "+sampleEcritureComptable.getListLigneEcriture());
+
     }
+
 
     @AfterEach
     public void reset() {
         Mockito.reset(daoProxy);
         Mockito.reset(comptabiliteDao);
         Mockito.reset(transactionManager);
+        //Mockito.reset(objectToTest);
+        //Mockito.reset(sampleEcritureComptable);
     }
 
     @Test
-    public void getListCompteComptable_shouldGetListByCallingDao() {
+    public void getListCompteComptable_shouldGetListByCallingDao(){
+
+
+        logger.error(" la valeur de getListCompteComptable de objectToTest  "+objectToTest.getListCompteComptable());
         List<CompteComptable> compteComptables = new ArrayList<>();
         compteComptables.add(new CompteComptable(1));
         compteComptables.add(new CompteComptable(2));
+        logger.error(" la valeur de comptabiliteDao "+comptabiliteDao);
+        logger.error(" la valeur de daProxy getComptabiliteDao "+daoProxy.getComptabiliteDao());
+
         Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
         Mockito.when(comptabiliteDao.getListCompteComptable()).thenReturn(compteComptables);
+        sampleEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+                null, new BigDecimal(123),
+                null));
+        sampleEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+                null, null,
+                new BigDecimal(123)));
+        comptabiliteDao.insertEcritureComptable(sampleEcritureComptable);
+        logger.error(" la valeur de getListEcritureComptable de sampleEcritureComptable "+sampleEcritureComptable.getListLigneEcriture());
 
         List<CompteComptable> result = objectToTest.getListCompteComptable();
+        logger.error(" la valeur de result "+result);
+        logger.error(" la valeur de compteComptables"+compteComptables);
+
 
         Assertions.assertThat(result).isEqualTo(compteComptables);
         Mockito.verify(comptabiliteDao).getListCompteComptable();
@@ -185,7 +217,6 @@ public class ComptabiliteManagerImplTest {
                 .isInstanceOf(FunctionalException.class)
                 .hasMessageContaining(Constant.ECRITURE_COMPTABLE_JOURNAL_NULL_FOR_ADD_REFERENCE);
     }
-
     @Test
     public void checkEcritureComptable_correctNewEcritureComptable_shouldNotThrowException() throws NotFoundException {
         Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
@@ -430,5 +461,5 @@ public class ComptabiliteManagerImplTest {
 
         Mockito.verify(transactionManager, Mockito.never()).rollbackMyERP(Mockito.any());
     }
-
+*/
 }
