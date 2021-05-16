@@ -39,16 +39,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @ExtendWith(SpringExtension.class)
 //@ContextConfiguration(classes = {BusinessContextBeans.class})
 public class ComptabiliteManagerImplTest {
-/*
+
     Logger logger = (Logger) LoggerFactory.getLogger(ComptabiliteManagerImplTest.class);
+
 
     @Mock
     private BusinessProxy businessProxy;
@@ -103,7 +101,7 @@ public class ComptabiliteManagerImplTest {
     @Test
     public void getListCompteComptable_shouldGetListByCallingDao(){
 
-
+        logger.error(" la valeur de getListCompteComptable de objectToTest  "+objectToTest);
         logger.error(" la valeur de getListCompteComptable de objectToTest  "+objectToTest.getListCompteComptable());
         List<CompteComptable> compteComptables = new ArrayList<>();
         compteComptables.add(new CompteComptable(1));
@@ -461,5 +459,4 @@ public class ComptabiliteManagerImplTest {
 
         Mockito.verify(transactionManager, Mockito.never()).rollbackMyERP(Mockito.any());
     }
-*/
 }
