@@ -50,7 +50,7 @@
         <maven.build.timestamp.format>dd/MM/yyyy</maven.build.timestamp.format>
         <buildTime>${maven.build.timestamp}</buildTime>
         <!-- Tell sonar where to look for the coverage file. Property inherited by submodules -->
-        <!--<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>-->
+        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 
         <!-- ===== Application properties ===== -->
         <application.name>MyERP</application.name>
@@ -59,13 +59,13 @@
         <log4j.version>2.8.1</log4j.version>
         <spring.version>4.3.7.RELEASE</spring.version>
 
-
         <!-- Avant -->
         <sonar.projectKey>Steigerwald_Projet9Tests</sonar.projectKey>
         <sonar.moduleKey>${project.artifactId}:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>steigerwald</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.login>5879fc80b03ee47855f596a5e3dcb6fdec92b2fb</sonar.login>
+
         <!--=======command  mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -->
         <sonar.language>java</sonar.language>
         <!-- -->
