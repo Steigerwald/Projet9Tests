@@ -65,7 +65,7 @@
         <sonar.moduleKey>${project.artifactId}:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>steigerwald</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.login>daf36f1484277c703e7f34ce8fabe947e7076352</sonar.login>
+        <sonar.login>9c9d2f7ee5b658c95962fb8beff949dd8e103a58</sonar.login>
 
         <!--=======command  mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -->
         <sonar.language>java</sonar.language>
