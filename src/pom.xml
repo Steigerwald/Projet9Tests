@@ -51,7 +51,7 @@
         <buildTime>${maven.build.timestamp}</buildTime>
         <!-- Tell sonar where to look for the coverage file. Property inherited by submodules -->
         <!--<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>-->
-        <sonar.jacoco.xmlReportPaths>${project.basedir}/../path_to_module_with_report/target/site/jacoco-aggregate/jacoco.xml</sonar.jacoco.xmlReportPaths>
+        <sonar.jacoco.xmlReportPaths>${project.basedir}/../target/site/jacoco/jacoco.xml</sonar.jacoco.xmlReportPaths>
 
         <!-- ===== Application properties ===== -->
         <application.name>MyERP</application.name>
@@ -65,7 +65,7 @@
         <sonar.moduleKey>${project.artifactId}:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>steigerwald</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.login>5879fc80b03ee47855f596a5e3dcb6fdec92b2fb</sonar.login>
+        <sonar.login>daf36f1484277c703e7f34ce8fabe947e7076352</sonar.login>
 
         <!--=======command  mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -->
         <sonar.language>java</sonar.language>
@@ -351,6 +351,14 @@
                 <artifactId>sonar-jacoco-plugin</artifactId>
                 <version>2.3</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.sonarsource.java/sonar-jacoco-listeners -->
+            <dependency>
+                <groupId>org.sonarsource.java</groupId>
+                <artifactId>sonar-jacoco-listeners</artifactId>
+                <version>5.14.0.18788</version>
+                <scope>test</scope>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugin-tools/maven-plugin-annotations -->
             <dependency>
                 <groupId>org.apache.maven.plugin-tools</groupId>

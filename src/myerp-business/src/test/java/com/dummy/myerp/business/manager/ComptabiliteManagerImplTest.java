@@ -7,6 +7,7 @@ import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
 import com.dummy.myerp.business.util.Constant;
 import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
+import com.dummy.myerp.consumer.dao.impl.db.dao.ComptabiliteDaoImpl;
 import com.dummy.myerp.model.bean.comptabilite.*;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
@@ -41,35 +42,34 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
+//@RunWith(MockitoJUnitRunner.class)
 @ExtendWith(SpringExtension.class)
-//@ContextConfiguration(classes = {BusinessContextBeans.class})
+@ContextConfiguration(classes = {BusinessContextBeans.class})
 public class ComptabiliteManagerImplTest {
 
     Logger logger = (Logger) LoggerFactory.getLogger(ComptabiliteManagerImplTest.class);
-
 /*
-    @Mock
+    @Autowired
     private BusinessProxy businessProxy;
 
-    @Mock
+    @Autowired
     private DaoProxy daoProxy;
 
-    @Mock
+    @Autowired
     private TransactionManager transactionManager;
 
-    @Mock
+    @Autowired
     private ComptabiliteDao comptabiliteDao;
 
     @Mock
     public ComptabiliteManagerImpl objectToTest;
 
-    @Mock
     public EcritureComptable sampleEcritureComptable;
 
     @BeforeEach
     public void init() throws FunctionalException {
-        //objectToTest.configure(businessProxy, daoProxy, transactionManager);
-        objectToTest = new ComptabiliteManagerImpl();
+        ComptabiliteManagerImpl.configure(businessProxy, daoProxy, transactionManager);
+        //objectToTest = new ComptabiliteManagerImpl();
         logger.error(" la valeur de getListComptable de objectToTest  "+objectToTest.getListCompteComptable());
         sampleEcritureComptable = new EcritureComptable();
         sampleEcritureComptable.setId(1);
@@ -83,11 +83,9 @@ public class ComptabiliteManagerImplTest {
         sampleEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
                 null, null,
                 new BigDecimal(123)));
-        objectToTest.insertEcritureComptable(sampleEcritureComptable);
+        //objectToTest.insertEcritureComptable(sampleEcritureComptable);
         logger.error(" la valeur de ligneEcritureComptable de sampleEcritureComptable  "+sampleEcritureComptable.getListLigneEcriture());
-
     }
-
 
     @AfterEach
     public void reset() {
@@ -101,22 +99,15 @@ public class ComptabiliteManagerImplTest {
     @Test
     public void getListCompteComptable_shouldGetListByCallingDao(){
 
-        logger.error(" la valeur de getListCompteComptable de objectToTest  "+objectToTest);
-        logger.error(" la valeur de getListCompteComptable de objectToTest  "+objectToTest.getListCompteComptable());
+        logger.error(" la valeur de sampleEcritureComptable "+sampleEcritureComptable);
         List<CompteComptable> compteComptables = new ArrayList<>();
         compteComptables.add(new CompteComptable(1));
         compteComptables.add(new CompteComptable(2));
         logger.error(" la valeur de comptabiliteDao "+comptabiliteDao);
+        Mockito.when(comptabiliteDao.getListCompteComptable()).thenReturn(compteComptables);
+        Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
         logger.error(" la valeur de daProxy getComptabiliteDao "+daoProxy.getComptabiliteDao());
 
-        Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
-        Mockito.when(comptabiliteDao.getListCompteComptable()).thenReturn(compteComptables);
-        sampleEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123),
-                null));
-        sampleEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
-                null, null,
-                new BigDecimal(123)));
         comptabiliteDao.insertEcritureComptable(sampleEcritureComptable);
         logger.error(" la valeur de getListEcritureComptable de sampleEcritureComptable "+sampleEcritureComptable.getListLigneEcriture());
 

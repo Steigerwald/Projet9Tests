@@ -17,33 +17,26 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @RunWith(MockitoJUnitRunner.class)
 @ExtendWith(SpringExtension.class)
-//@ContextConfiguration(classes = {BusinessContextBeans.class})
+@ContextConfiguration(classes = {BusinessContextBeans.class})
 public class BusinessProxyImplTest {
 
     Logger logger = (Logger) LoggerFactory.getLogger(BusinessProxyImplTest.class);
 
-    @Mock
+    @Autowired
     private DaoProxy daoProxy;
-    //@Autowired
-    //private DaoProxy daoProxy;
 
-    @Mock
+    @Autowired
     private TransactionManager transactionManager;
-    //@Autowired
-    //private TransactionManager transactionManager;
 
     @Mock
     //@Autowired
     private BusinessProxy objectToTest;
-
-    @Mock
-    //@Autowired
-    private ComptabiliteManager comptabiliteManager;
 
     @BeforeEach
     public void init() {
@@ -69,7 +62,7 @@ public class BusinessProxyImplTest {
    @Test
     public void getComptabiliteManagerTest() {
         objectToTest=BusinessProxyImpl.getInstance(daoProxy,transactionManager);
-        logger.error(" la valeur de transactionManager  "+transactionManager);
+        logger.info(" la valeur de transactionManager  "+transactionManager);
         logger.error(" la valeur de daoProxy  "+daoProxy);
         logger.error(" la valeur de objectToTest  "+objectToTest);
         logger.error(" la valeur de de getComptabiliteManager de objectToTest  "+objectToTest.getComptabiliteManager());
