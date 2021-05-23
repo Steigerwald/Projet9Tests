@@ -51,12 +51,6 @@
     </bean>
 
 
-    <!-- ==================== Databases ==================== -->
-    <bean id="dataSourceMYERP" class="com.dummy.myerp.technical.util.spring.NullFactoryBean">
-        <constructor-arg value="javax.sql.DataSource"/>
-    </bean>
-
-
     <!-- ========== SQL ========== -->
     <import resource="sqlContext.xml"/>
 </beans>

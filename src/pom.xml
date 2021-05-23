@@ -65,7 +65,7 @@
         <sonar.moduleKey>${project.artifactId}:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>steigerwald</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <!--<sonar.login>9c9d2f7ee5b658c95962fb8beff949dd8e103a58</sonar.login>-->
+        <sonar.login>9c9d2f7ee5b658c95962fb8beff949dd8e103a58</sonar.login>
 
         <!--=======command  mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -->
         <sonar.language>java</sonar.language>
@@ -335,7 +335,12 @@
                 <!--<version>5.3.5</version>-->
                 <scope>test</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>2.23.4</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
