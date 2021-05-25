@@ -44,31 +44,35 @@ import java.util.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {BusinessContextBeans.class})
+//@ContextConfiguration(classes = {BusinessContextBeans.class})
 public class ComptabiliteManagerImplTest {
 
     Logger logger = (Logger) LoggerFactory.getLogger(ComptabiliteManagerImplTest.class);
 
-    @Autowired
+    @Mock
+    //@Autowired
     private BusinessProxy businessProxy;
 
-    @Autowired
+    @Mock
+    //@Autowired
     private DaoProxy daoProxy;
 
-    @Autowired
+    @Mock
     private TransactionManager transactionManager;
 
-    @Autowired
+    @Mock
     private ComptabiliteDao comptabiliteDao;
 
-    public ComptabiliteManagerImpl objectToTest;
+    @InjectMocks
+    private ComptabiliteManagerImpl objectToTest;
 
-    public EcritureComptable sampleEcritureComptable;
+
+    private EcritureComptable sampleEcritureComptable;
 
     @Before
     public void init() throws FunctionalException {
-        //ComptabiliteManagerImpl.configure(businessProxy, daoProxy, transactionManager);
-        objectToTest = new ComptabiliteManagerImpl();
+        ComptabiliteManagerImpl.configure(businessProxy, daoProxy, transactionManager);
+       // objectToTest = new ComptabiliteManagerImpl();
         //logger.error(" la valeur de objectToTest  "+objectToTest);
         sampleEcritureComptable = new EcritureComptable();
         //sampleEcritureComptable.setId(1);
@@ -87,14 +91,14 @@ public class ComptabiliteManagerImplTest {
         //logger.error(" la valeur de ligneEcritureComptable de sampleEcritureComptable  "+sampleEcritureComptable.getListLigneEcriture());
     }
 
-    @After
+    /*@After
     public void reset() {
         Mockito.reset(daoProxy);
         Mockito.reset(comptabiliteDao);
         Mockito.reset(transactionManager);
         //Mockito.reset(objectToTest);
         //Mockito.reset(sampleEcritureComptable);
-    }
+    }*/
 
     @Test
     public void getListCompteComptable_shouldGetListByCallingDao(){
@@ -108,8 +112,8 @@ public class ComptabiliteManagerImplTest {
         Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
         logger.error(" la valeur de daProxy getComptabiliteDao "+daoProxy.getComptabiliteDao());
 
-        comptabiliteDao.insertEcritureComptable(sampleEcritureComptable);
-        logger.error(" la valeur de getListEcritureComptable de sampleEcritureComptable "+sampleEcritureComptable.getListLigneEcriture());
+        //comptabiliteDao.insertEcritureComptable(sampleEcritureComptable);
+        //logger.error(" la valeur de getListEcritureComptable de sampleEcritureComptable "+sampleEcritureComptable.getListLigneEcriture());
 
         List<CompteComptable> result = objectToTest.getListCompteComptable();
         logger.error(" la valeur de result "+result);
