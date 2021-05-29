@@ -20,10 +20,11 @@ public class TestInitSpring extends BusinessTestCase {
     /**
      * Teste l'initialisation du contexte Spring
      */
+    /*
     @Test
     public void testInit() {
         SpringRegistry.init();
         assertThat(SpringRegistry.getBusinessProxy()).isNotNull();
         assertThat(SpringRegistry.getTransactionManager()).isNotNull();
-    }
+    }*/
 }
