@@ -11,7 +11,6 @@ import com.dummy.myerp.consumer.dao.impl.db.dao.ComptabiliteDaoImpl;
 import com.dummy.myerp.model.bean.comptabilite.*;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
-import config.BusinessContextBeans;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
@@ -29,10 +28,6 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.TransactionStatus;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -64,7 +59,6 @@ public class ComptabiliteManagerImplTest {
     @InjectMocks
     private ComptabiliteManagerImpl objectToTest;
 
-
     private EcritureComptable sampleEcritureComptable;
 
     @Before
@@ -83,8 +77,6 @@ public class ComptabiliteManagerImplTest {
                 null, null,
                 new BigDecimal(123)));
 
-
-
     }
 
     @After
@@ -92,8 +84,6 @@ public class ComptabiliteManagerImplTest {
         Mockito.reset(daoProxy);
         Mockito.reset(comptabiliteDao);
         Mockito.reset(transactionManager);
-        //Mockito.reset(objectToTest);
-        //Mockito.reset(sampleEcritureComptable);
     }
 
     @Test
@@ -238,7 +228,7 @@ public class ComptabiliteManagerImplTest {
                 .hasMessageContaining(Constant.ECRITURE_COMPTABLE_MANAGEMENT_RULE_ERRORMSG);
     }
 
- /*
+/*
     @ParameterizedTest(name = "{0} is not a valid reference")
     @ValueSource(strings = {"BQ-201/00002", "B1-2019/00002", "BC2019/00002", "BC-201900002", "BC-2019/000028", "BC-201a/00002"})
     public void checkEcritureComptable_invalidReferenceFormat_returnFunctionalExceptionWithCorrectMessage(String arg) {

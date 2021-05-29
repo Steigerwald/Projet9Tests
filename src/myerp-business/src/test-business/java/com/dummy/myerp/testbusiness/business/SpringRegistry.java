@@ -1,17 +1,18 @@
-package com.dummy.myerp.business.test;
+package com.dummy.myerp.testbusiness.business;
 
-import com.dummy.myerp.business.contrat.BusinessProxy;
-import com.dummy.myerp.business.impl.TransactionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import com.dummy.myerp.business.contrat.BusinessProxy;
+import com.dummy.myerp.business.impl.TransactionManager;
+
 
 /**
  * Registre des Beans Spring.
  */
-
 public final class SpringRegistry {
+
     /** Logger Log4j pour la classe */
     private static final Logger LOGGER = LogManager.getLogger(SpringRegistry.class);
 
@@ -22,7 +23,7 @@ public final class SpringRegistry {
 
     /** Nom des fichiers de contexte de l'application */
     private static final String CONTEXT_APPLI_LOCATION
-            = "classpath:/com/dummy/myerp/business/applicationContext.xml";
+        = "classpath:/com/dummy/myerp/testbusiness/business/bootstrapContext.xml";
 
     /** Le context spring de l'application */
     private ApplicationContext contextAppli;
@@ -80,7 +81,7 @@ public final class SpringRegistry {
      * @return {@link BusinessProxy}
      */
     public static BusinessProxy getBusinessProxy() {
-        return (BusinessProxy) SpringRegistry.getBean("businessProxy");
+        return (BusinessProxy) SpringRegistry.getBean("BusinessProxy");
     }
 
 
@@ -90,6 +91,6 @@ public final class SpringRegistry {
      * @return {@link TransactionManager}
      */
     public static TransactionManager getTransactionManager() {
-        return (TransactionManager) SpringRegistry.getBean("transactionManager");
+        return (TransactionManager) SpringRegistry.getBean("TransactionManager");
     }
 }
