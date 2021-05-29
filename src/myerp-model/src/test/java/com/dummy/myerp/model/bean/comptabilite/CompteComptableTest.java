@@ -10,8 +10,6 @@ public class CompteComptableTest {
 
     // test de la méthode getByNumero
 
-
-
     @Test
     public void checkGetByNumeroNotNull() {
 

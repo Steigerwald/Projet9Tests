@@ -17,7 +17,6 @@ public class SequenceEcritureComptableTest {
         sequenceEcritureComptable.setAnnee(annee);
         sequenceEcritureComptable.setJournal(journalComptable);
         sequenceEcritureComptable.setDerniereValeur(88);
-
     }
 
 }

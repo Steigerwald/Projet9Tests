@@ -1,13 +1,11 @@
 package com.dummy.myerp.business.manager;
 
-import BusinessProxyImplTest.BusinessProxyImplTest;
 import com.dummy.myerp.business.contrat.BusinessProxy;
 import com.dummy.myerp.business.impl.TransactionManager;
 import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
 import com.dummy.myerp.business.util.Constant;
 import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
-import com.dummy.myerp.consumer.dao.impl.db.dao.ComptabiliteDaoImpl;
 import com.dummy.myerp.model.bean.comptabilite.*;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
@@ -62,7 +60,7 @@ public class ComptabiliteManagerImplTest {
     private EcritureComptable sampleEcritureComptable;
 
     @Before
-    public void init() throws FunctionalException {
+    public void init(){
         ComptabiliteManagerImpl.configure(businessProxy, daoProxy, transactionManager);
         sampleEcritureComptable = new EcritureComptable();
         //sampleEcritureComptable.setId(1);
@@ -195,16 +193,21 @@ public class ComptabiliteManagerImplTest {
                 .hasMessageContaining(Constant.ECRITURE_COMPTABLE_JOURNAL_NULL_FOR_ADD_REFERENCE);
     }
 
-    /*
     @Test
     public void checkEcritureComptable_correctNewEcritureComptable_shouldNotThrowException() throws NotFoundException {
+        logger.error(" la valeur de comptabiliteDao "+comptabiliteDao);
         Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
+        logger.error(" la valeur de getComptabiliteDao de daoProxy "+daoProxy.getComptabiliteDao());
+        logger.error(" la valeur de sampleEcritureComptableGetReference "+sampleEcritureComptable.getReference());
         Mockito.when(comptabiliteDao.getEcritureComptableByRef(sampleEcritureComptable.getReference())).thenThrow(new NotFoundException());
 
+        logger.error(" la ligne ecriture "+sampleEcritureComptable.getListLigneEcriture());
+        logger.error(" date la ligne ecriture "+sampleEcritureComptable.getDate());
         Assertions.assertThatCode(() -> objectToTest.checkEcritureComptable(sampleEcritureComptable))
-                .doesNotThrowAnyException();
+               .doesNotThrowAnyException();
+
     }
-     */
+
 /*
     @Test
     public void checkEcritureComptable_alreadySavedEcritureComptable_shouldNotThrowException() throws NotFoundException {
