@@ -2,6 +2,8 @@ package com.dummy.myerp.model.bean.comptabilite;
 
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
@@ -26,7 +29,9 @@ public class EcritureComptable {
     /** The Reference. */
     @Pattern(regexp = "\\d{1,5}-\\d{5}/\\d{5}")
     private String reference;
+
     /** The Date. */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotNull private Date date;
 
     /** The Libelle. */
@@ -59,12 +64,11 @@ public class EcritureComptable {
     public void setReference(String pReference) {
         reference = pReference;
     }
-    public Date getDate() {
-        return date;
-    }
-    public void setDate(Date pDate) {
-        date = pDate;
-    }
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public Date getDate() { return date;}
+    //public String getDate() { return simpleDateFormat.format(date);}
+    public void setDate(Date pDate) {date = pDate;}
+    //public void setDate(String pDate) throws ParseException {date = simpleDateFormat.parse(pDate);}
     public String getLibelle() {
         return libelle;
     }
@@ -124,7 +128,7 @@ public class EcritureComptable {
             .append("id=").append(id)
             .append(vSEP).append("journal=").append(journal)
             .append(vSEP).append("reference='").append(reference).append('\'')
-            .append(vSEP).append("date=").append(date)
+            .append(vSEP).append("date=").append(simpleDateFormat.format(date))
             .append(vSEP).append("libelle='").append(libelle).append('\'')
             .append(vSEP).append("totalDebit=").append(this.getTotalDebit().toPlainString())
             .append(vSEP).append("totalCredit=").append(this.getTotalCredit().toPlainString())

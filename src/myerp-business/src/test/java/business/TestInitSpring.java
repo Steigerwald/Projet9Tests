@@ -1,4 +1,4 @@
-package com.dummy.myerp.testbusiness.business;
+package business;
 
 //import org.junit.Test;
 import org.junit.jupiter.api.Test;

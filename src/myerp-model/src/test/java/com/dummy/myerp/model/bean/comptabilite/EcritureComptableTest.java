@@ -1,6 +1,9 @@
 package com.dummy.myerp.model.bean.comptabilite;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Assert;
@@ -21,10 +24,12 @@ public class EcritureComptableTest {
     }
 
     @Test
-    public void isEquilibree() {
+    public void isEquilibree() throws ParseException {
         // arrange
         EcritureComptable vEcriture;
         vEcriture = new EcritureComptable();
+        Date simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd").parse("2016-12-28");
+        vEcriture.setDate(simpleDateFormat);
 
         // act
         vEcriture.setLibelle("Equilibrée");
@@ -41,10 +46,12 @@ public class EcritureComptableTest {
 
 
     @Test
-    public void isNotEquilibree() {
+    public void isNotEquilibree() throws ParseException {
         // arrange
             EcritureComptable vEcriture;
             vEcriture = new EcritureComptable();
+        Date simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd").parse("2016-12-28");
+        vEcriture.setDate(simpleDateFormat);
 
         // act
         vEcriture.getListLigneEcriture().clear();
