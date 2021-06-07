@@ -266,7 +266,6 @@ public class ComptabiliteDaoTest {
 		comptabiliteDao.getSequenceByYearAndJournalCode(annee,code);
 	} 
 
-/*
 	@Test
 	@Transactional
 	@Rollback
@@ -287,8 +286,6 @@ public class ComptabiliteDaoTest {
 
 	}
 
- */
-
 	@Test
 	@Transactional
 	@Rollback
@@ -302,7 +299,8 @@ public class ComptabiliteDaoTest {
 		sequenceEcritureComptable = comptabiliteDao.getSequenceByYearAndJournalCode(2016,"BQ");
 		assertThat(sequenceEcritureComptable).extracting("derniereValeur").isEqualTo(2);
 	}
-/*
+
+	/*
 	@Test
 	@Transactional
 	@Rollback
@@ -336,7 +334,9 @@ public class ComptabiliteDaoTest {
 		EcritureComptable ecritureComptable = comptabiliteDao.getEcritureComptableByRef("AC-2019/00001");
 		assertThat(ecritureComptable.toString()).isEqualTo(vEcritureComptable.toString());
 		//assertThat(ecritureComptable.getListLigneEcriture()).usingRecursiveFieldByFieldElementComparator().contains(ligneEcritureComptable1,ligneEcritureComptable2);
-	}*/
+	}
+
+	 */
 
 	@Test
 	@Transactional
@@ -362,7 +362,7 @@ public class ComptabiliteDaoTest {
 //		assertThat(eComptableTest).usingRecursiveComparison().isEqualTo(ecritureComptable);
 		assertThat(eComptableTest.toString()).isEqualTo(ecritureComptable.toString());
 	}
-/*
+
 	@Test 
 	@Transactional
 	@Rollback
@@ -387,5 +387,4 @@ public class ComptabiliteDaoTest {
 		assertThat(eList).usingRecursiveFieldByFieldElementComparator().doesNotContain(ecritureComptable);
 	}
 
- */
 }
