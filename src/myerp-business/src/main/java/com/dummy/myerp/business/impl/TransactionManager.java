@@ -65,7 +65,7 @@ public class TransactionManager {
     /**
      * Commit la transaction sur le DataSource MyERP
      *
-     * @param pTStatus retrouné par la méthode {@link #beginTransactionMyERP()}
+     * @param pTStatus retourné par la méthode {@link #beginTransactionMyERP()}
      */
     public void commitMyERP(TransactionStatus pTStatus) {
         if (pTStatus != null) {
@@ -76,7 +76,7 @@ public class TransactionManager {
     /**
      * Rollback la transaction sur le DataSource MyERP
      *
-     * @param pTStatus retrouné par la méthode {@link #beginTransactionMyERP()}
+     * @param pTStatus retourné par la méthode {@link #beginTransactionMyERP()}
      */
     public void rollbackMyERP(TransactionStatus pTStatus) {
         if (pTStatus != null) {

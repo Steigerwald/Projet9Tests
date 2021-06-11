@@ -1,38 +1,17 @@
 package com.dummy.myerp.consumer.db;
 
-//import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-//import static org.hamcrest.MatcherAssert.assertThat;
-//import static org.hamcrest.MatcherAssert.assertThat;
-//import static org.hamcrest.Matchers.is;
-//import static org.hamcrest.Matchers.equalTo;
-
-//import static org.junit.Assert.assertThat;
-
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.*;
 
-import org.hamcrest.CoreMatchers.*;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dummy.myerp.consumer.config.SpringRegistry;
@@ -43,12 +22,9 @@ import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.SequenceEcritureComptable;
-import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
 
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import javax.xml.crypto.Data;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -168,7 +144,13 @@ public class ComptabiliteDaoTest {
 		l2 = new LigneEcritureComptable(new CompteComptable(411,"Clients"),null, null, new BigDecimal("3000.00"));
 		e5.getListLigneEcriture().add(l1);
 		e5.getListLigneEcriture().add(l2);
-		
+
+		logger.error(" ======la valeur de elist.get(0)"+eList.get(0).toString());
+		logger.error(" ======la valeur de elist.get(1)"+eList.get(1).toString());
+		logger.error(" ======la valeur de elist.get(2)"+eList.get(2).toString());
+		logger.error(" ======la valeur de elist.get(3)"+eList.get(3).toString());
+		logger.error(" ======la valeur de elist.get(4)"+eList.get(4).toString());
+
 		//assertThat(eList).usingRecursiveFieldByFieldElementComparator().containsExactly(e1,e2,e3,e4,e5);
 		assertThat(eList.get(0).toString()).isEqualTo(e1.toString());
 		assertThat(eList.get(1).toString()).isEqualTo(e2.toString());
@@ -181,7 +163,7 @@ public class ComptabiliteDaoTest {
 	public void checkGetEcritureComptableById() throws ParseException, NotFoundException {
 		int id = -4;
 		EcritureComptable ecritureComptable = new EcritureComptable();
-		ecritureComptable.setId(-4);
+		ecritureComptable.setId(id);
 		ecritureComptable.setJournal(new JournalComptable("VE","Vente"));
 		ecritureComptable.setLibelle("TMA Appli Yyy");
 		ecritureComptable.setReference("VE-2016/00004");
@@ -300,23 +282,23 @@ public class ComptabiliteDaoTest {
 		assertThat(sequenceEcritureComptable).extracting("derniereValeur").isEqualTo(2);
 	}
 
-	/*
+
 	@Test
 	@Transactional
 	@Rollback
 	public void checkInsertEcritureComptable() throws NotFoundException, ParseException {
 
-		List<EcritureComptable> eList = new ArrayList<EcritureComptable>();
-		eList = comptabiliteDao.getListEcritureComptable();
-		int sizeBefore = eList.size();
+		List<EcritureComptable> eList1 = new ArrayList<EcritureComptable>();
+		eList1 = comptabiliteDao.getListEcritureComptable();
+		int sizeBefore = eList1.size();
 
 		EcritureComptable vEcritureComptable;
 		vEcritureComptable = new EcritureComptable();
 		vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		vEcritureComptable.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-12-31"));
 		vEcritureComptable.setLibelle("Achat");
-		
-		LigneEcritureComptable ligneEcritureComptable1 = new LigneEcritureComptable(new CompteComptable(401, "Fournisseurs"), null, new BigDecimal("123.OO"), null);
+
+		LigneEcritureComptable ligneEcritureComptable1 = new LigneEcritureComptable(new CompteComptable(401, "Fournisseurs"), null, new BigDecimal("123.00"), null);
 		LigneEcritureComptable ligneEcritureComptable2 = new LigneEcritureComptable(new CompteComptable(411, "Clients"), null, null, new BigDecimal("123.00"));
 		
 		vEcritureComptable.getListLigneEcriture().add(ligneEcritureComptable1);
@@ -325,18 +307,17 @@ public class ComptabiliteDaoTest {
 
 		comptabiliteDao.insertEcritureComptable(vEcritureComptable);
 
-		eList = comptabiliteDao.getListEcritureComptable();
+		eList1 = comptabiliteDao.getListEcritureComptable();
 
 		int sizeExpected = sizeBefore + 1;
 
-		assertThat(eList).hasSize(sizeExpected);
+		assertThat(eList1).hasSize(sizeExpected);
 
 		EcritureComptable ecritureComptable = comptabiliteDao.getEcritureComptableByRef("AC-2019/00001");
 		assertThat(ecritureComptable.toString()).isEqualTo(vEcritureComptable.toString());
 		//assertThat(ecritureComptable.getListLigneEcriture()).usingRecursiveFieldByFieldElementComparator().contains(ligneEcritureComptable1,ligneEcritureComptable2);
 	}
 
-	 */
 
 	@Test
 	@Transactional

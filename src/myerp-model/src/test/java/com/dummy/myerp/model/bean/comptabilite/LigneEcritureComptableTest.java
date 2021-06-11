@@ -13,7 +13,6 @@ public class LigneEcritureComptableTest {
         CompteComptable compte1 = new CompteComptable(1,"TD");
         LigneEcritureComptable ligneATester = new LigneEcritureComptable(compte1,"Voiture",new BigDecimal(100),null);
         String LigneDeTest = new String("LigneEcritureComptable{compteComptable=CompteComptable{numero=1, libelle='TD'}, libelle='Voiture', debit=100, credit=null}");
-
         assertThat(ligneATester.toString()).isEqualTo(LigneDeTest);
     }
 

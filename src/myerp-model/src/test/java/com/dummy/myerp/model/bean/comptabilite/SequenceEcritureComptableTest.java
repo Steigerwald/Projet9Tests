@@ -19,6 +19,10 @@ public class SequenceEcritureComptableTest {
         sequenceEcritureComptable.setAnnee(annee);
         sequenceEcritureComptable.setJournal(journalComptable);
         sequenceEcritureComptable.setDerniereValeur(88);
+        String SequenceTest1 = new String("SequenceEcritureComptable{annee=2016, derniereValeur=88}");
+        assertThat(sequenceEcritureComptable.toString()).isEqualTo(SequenceTest1);
+        assertThat(sequenceEcritureComptable.getAnnee()).isEqualTo(2016);
+        assertThat(sequenceEcritureComptable.getDerniereValeur()==(88));
     }
 
     @Test
