@@ -2,6 +2,7 @@ package com.dummy.myerp.business.manager;
 
 import business.SpringRegistry;
 import com.dummy.myerp.business.contrat.BusinessProxy;
+import com.dummy.myerp.business.impl.BusinessProxyImpl;
 import com.dummy.myerp.business.impl.TransactionManager;
 import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
 import com.dummy.myerp.business.util.Constant;
@@ -479,16 +480,15 @@ public class ComptabiliteManagerImplTest {
     }
 
     @Test
-    public void getInstanceTransactionManager(){
-        TransactionStatus transactionStatus = transactionManager.beginTransactionMyERP();
+    public void getInstanceTransactionStatus(){
+        TransactionStatus transactionStatus = Mockito.mock(TransactionStatus.class);
+        Mockito.when(transactionManager.beginTransactionMyERP()).thenReturn(transactionStatus);
         transactionManager.commitMyERP(transactionStatus);
         transactionManager.rollbackMyERP(transactionStatus);
         logger.error(" la valeur de transactionStatus "+transactionStatus);
         logger.error(" la valeur de transactionStatus "+transactionManager.beginTransactionMyERP());
+        Assertions.assertThat(transactionManager.beginTransactionMyERP()).isNotNull();
     }
-
-
-
 
 
 }

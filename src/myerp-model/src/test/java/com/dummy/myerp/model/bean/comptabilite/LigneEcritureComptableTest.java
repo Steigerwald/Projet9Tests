@@ -16,6 +16,15 @@ public class LigneEcritureComptableTest {
         assertThat(ligneATester.toString()).isEqualTo(LigneDeTest);
     }
 
-
-
+    @Test
+    public void checkConstructeurLigneEcritureComptable(){
+        CompteComptable compte1 = new CompteComptable(1,"TD");
+        LigneEcritureComptable ligneATester1 = new LigneEcritureComptable(compte1,"Voiture",new BigDecimal(100),null);
+        LigneEcritureComptable ligneATester2 = new LigneEcritureComptable();
+        ligneATester2.setCompteComptable(compte1);
+        ligneATester2.setLibelle("Voiture");
+        ligneATester2.setDebit(new BigDecimal(100));
+        ligneATester2.setCredit(null);
+        assertThat(ligneATester1.toString()).isEqualTo(ligneATester2.toString());
+    }
 }

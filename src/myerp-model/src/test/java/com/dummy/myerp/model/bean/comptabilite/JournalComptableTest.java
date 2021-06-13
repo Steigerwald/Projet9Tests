@@ -9,6 +9,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JournalComptableTest {
 
+
+    @Test
+    public void checkGetJournalToString(){
+        JournalComptable j1 = new JournalComptable("AC","achat");
+        String journalToString="JournalComptable{code='AC', libelle='achat'}";
+        assertThat(j1.toString()).isEqualTo(journalToString);
+    }
+
+
+    @Test
+    public void checkConstructeurJournalComptable(){
+        JournalComptable j1 = new JournalComptable("AC","achat");
+        JournalComptable j2=new JournalComptable();
+        j2.setCode("AC");
+        j2.setLibelle("achat");
+        assertThat(j1.toString()).isEqualTo(j2.toString());
+    }
+
     // test de la méthode getByCode
 
     @Test

@@ -9,6 +9,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SequenceEcritureComptableTest {
 
+   @Test
+   public void checkConstructeurSequenceecritureComptable(){
+       int annee = 2021;
+       JournalComptable journalComptable=new JournalComptable();
+       int derniereValeur = 80;
+       SequenceEcritureComptable sequence1 = new SequenceEcritureComptable(annee,journalComptable,derniereValeur);
+       SequenceEcritureComptable sequence2=new SequenceEcritureComptable();
+       sequence2.setAnnee(annee);
+       sequence2.setJournal(journalComptable);
+       sequence2.setDerniereValeur(derniereValeur);
+       assertThat(sequence1).isEqualTo(sequence2);
+   }
+
     @Test
     public void checkGetSequenceEcritureComptableByCodeAndAnnee() throws NotFoundException {
         String code = "OD";
@@ -35,8 +48,15 @@ public class SequenceEcritureComptableTest {
         assertThat(sequence1.toString()).isEqualTo(SequenceDeTest);
     }
 
-
-
+    @Test
+    public void checkEqualsDeEcritureComptable(){
+        int annee = 2021;
+        JournalComptable journalComptable=new JournalComptable();
+        int derniereValeur = 80;
+        SequenceEcritureComptable sequence1 = new SequenceEcritureComptable(annee,journalComptable,derniereValeur);
+        SequenceEcritureComptable sequence2 = new SequenceEcritureComptable(annee,journalComptable,derniereValeur);
+        sequence1.equals(sequence2);
+    }
 
 
 }

@@ -248,6 +248,8 @@ public class ComptabiliteDaoTest {
 		comptabiliteDao.getSequenceByYearAndJournalCode(annee,code);
 	} 
 
+	///====================
+	/*
 	@Test
 	@Transactional
 	@Rollback
@@ -367,5 +369,7 @@ public class ComptabiliteDaoTest {
 		assertThat(eList.size()).isEqualTo(sizeExpected);
 		assertThat(eList).usingRecursiveFieldByFieldElementComparator().doesNotContain(ecritureComptable);
 	}
+
+	 */
 
 }
