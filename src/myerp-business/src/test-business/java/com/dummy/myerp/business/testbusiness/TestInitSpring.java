@@ -1,7 +1,8 @@
-package com.dummy.myerp.testbusiness.business;
+package com.dummy.myerp.business.testbusiness;
 
 //import org.junit.Test;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 

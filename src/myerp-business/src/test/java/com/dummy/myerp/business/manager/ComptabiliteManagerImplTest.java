@@ -1,8 +1,6 @@
 package com.dummy.myerp.business.manager;
 
-import business.SpringRegistry;
 import com.dummy.myerp.business.contrat.BusinessProxy;
-import com.dummy.myerp.business.impl.BusinessProxyImpl;
 import com.dummy.myerp.business.impl.TransactionManager;
 import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
 import com.dummy.myerp.business.util.Constant;
@@ -26,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionStatus;
 
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -190,76 +189,29 @@ public class ComptabiliteManagerImplTest {
                 .hasMessageContaining(Constant.ECRITURE_COMPTABLE_JOURNAL_NULL_FOR_ADD_REFERENCE);
     }
 
-/*
     @Test
     public void checkEcritureComptable_correctNewEcritureComptable_shouldNotThrowException() throws NotFoundException, ParseException {
 
         sampleEcritureComptable.getListLigneEcriture().clear();
         sampleEcritureComptable = new EcritureComptable();
-        //sampleEcritureComptable.setId(1);
+        sampleEcritureComptable.setId(1);
         sampleEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
         sampleEcritureComptable.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2020-02-11"));
         sampleEcritureComptable.setLibelle("Libelle");
         sampleEcritureComptable.setReference("AC-2020/00001");
         LigneEcritureComptable l1 = new LigneEcritureComptable(new CompteComptable(1),"Cartouches", new BigDecimal(123),null);
         LigneEcritureComptable l2 = new LigneEcritureComptable(new CompteComptable(2),"Cartouches", null,new BigDecimal(123));
-        //LigneEcritureComptable l1 = new LigneEcritureComptable(new CompteComptable(1,"Achats"),"Cartouches", new BigDecimal(123),null);
-        //LigneEcritureComptable l2 = new LigneEcritureComptable(new CompteComptable(2,"Banque"),"Cartouches", null,new BigDecimal(123));
         sampleEcritureComptable.getListLigneEcriture().add(l1);
         sampleEcritureComptable.getListLigneEcriture().add(l2);
-        //logger.error(" la valeur de comptabiliteDao "+comptabiliteDao);
-        //Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
-        //logger.error(" la valeur de getComptabiliteDao de daoProxy "+daoProxy.getComptabiliteDao());
-        //logger.error(" la valeur de sampleEcritureComptableGetReference "+sampleEcritureComptable.getReference());
-        //Mockito.when(comptabiliteDao.getEcritureComptableByRef(sampleEcritureComptable.getReference())).thenThrow(new NotFoundException());
-
+        logger.error(" la valeur de comptabiliteDao "+comptabiliteDao);
+        Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
+        Mockito.when(comptabiliteDao.getEcritureComptableByRef(sampleEcritureComptable.getReference())).thenThrow(new NotFoundException());
         logger.error(" la ligne ecriture "+sampleEcritureComptable.getListLigneEcriture());
         logger.error(" date la ligne ecriture "+sampleEcritureComptable.getDate());
         Assertions.assertThatCode(() -> objectToTest.checkEcritureComptable(sampleEcritureComptable))
                .doesNotThrowAnyException();
 
     }
-
- */
-
-/*
-    @Test
-    public void checkEcritureComptableUnit() throws Exception {
-        SpringRegistry.init();
-
-        EcritureComptable vEcritureComptable;
-        vEcritureComptable = new EcritureComptable();
-        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        vEcritureComptable.setDate(new Date());
-        vEcritureComptable.setLibelle("Libelle");
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal("123.00"),
-                null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
-                null, null,
-                new BigDecimal("123.00")));
-        vEcritureComptable.setReference("AC-2020/00001");
-
-        //logger.error(" la ligne ecriture "+sampleEcritureComptable.getListLigneEcriture());
-        //logger.error(" date la ligne ecriture "+sampleEcritureComptable.getDate());
-        //objectToTest.checkEcritureComptableUnit(sampleEcritureComptable);
-        //SpringRegistry.init();
-        EcritureComptable vEcritureComptable;
-        vEcritureComptable = new EcritureComptable();
-        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
-        vEcritureComptable.setDate(new Date());
-        vEcritureComptable.setLibelle("Libelle");
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
-                null, new BigDecimal(123),
-                null));
-        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
-                null, null,
-                new BigDecimal(123)));
-        vEcritureComptable.setReference("AC-2020/00001");
-        objectToTest.checkEcritureComptableUnit(vEcritureComptable);
-
-    }
-    */
 
     @Test(expected = FunctionalException.class)
     public void checkEcritureComptableUnitViolation() throws Exception {
@@ -389,16 +341,6 @@ public class ComptabiliteManagerImplTest {
         objectToTest.checkEcritureComptableUnit(vEcritureComptable);
     }
 
-    /*
-    @Test(expected = FunctionalException.class)
-    public void checkEcritureComptableContextRG6() throws Exception {
-        SpringRegistry.init();
-        EcritureComptable vEcritureComptable = new EcritureComptable();
-        vEcritureComptable.setReference("BQ-2016/00005");
-        //sampleEcritureComptable.setReference("BQ-2016/00005");
-        objectToTest.checkEcritureComptableContext(vEcritureComptable);
-    }*/
-
 
     @Test
     public void checkEcritureComptable_ecritureComptableDoesNotRespectValidationConstraint_returnFunctionalExceptionWithCorrectMessage() {
@@ -424,6 +366,7 @@ public class ComptabiliteManagerImplTest {
         Mockito.verify(transactionManager, Mockito.never()).rollbackMyERP(Mockito.any());
     }
 
+    /*
     @Test
     public void updateEcritureComptable_commitThrowException_shouldNotRollback() throws FunctionalException, NotFoundException {
         TransactionStatus transactionStatus = Mockito.mock(TransactionStatus.class);
@@ -436,6 +379,9 @@ public class ComptabiliteManagerImplTest {
 
         Mockito.verify(transactionManager, Mockito.never()).rollbackMyERP(Mockito.any());
     }
+
+     */
+
 
     @Test
     public void deleteEcritureComptable_insertSuccess_shouldCallTransactionManagerAndDao() throws NotFoundException {

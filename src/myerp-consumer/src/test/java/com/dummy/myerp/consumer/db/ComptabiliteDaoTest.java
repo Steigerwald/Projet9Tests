@@ -249,7 +249,7 @@ public class ComptabiliteDaoTest {
 	} 
 
 	///====================
-	/*
+
 	@Test
 	@Transactional
 	@Rollback
@@ -345,7 +345,6 @@ public class ComptabiliteDaoTest {
 //		assertThat(eComptableTest).usingRecursiveComparison().isEqualTo(ecritureComptable);
 		assertThat(eComptableTest.toString()).isEqualTo(ecritureComptable.toString());
 	}
-
 	@Test 
 	@Transactional
 	@Rollback
@@ -370,6 +369,5 @@ public class ComptabiliteDaoTest {
 		assertThat(eList).usingRecursiveFieldByFieldElementComparator().doesNotContain(ecritureComptable);
 	}
 
-	 */
 
 }

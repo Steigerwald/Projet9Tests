@@ -27,11 +27,10 @@ public class EcritureComptable {
     /** Journal comptable */
     @NotNull private JournalComptable journal;
     /** The Reference. */
-    @Pattern(regexp = "\\d{1,5}-\\d{5}/\\d{5}")
+    @Pattern(regexp = "^[A-Z]{1,5}-\\d{4}/\\d{5}")
     private String reference;
 
     /** The Date. */
-    @DateTimeFormat(pattern="yyyy-MM-dd")
     @NotNull private Date date;
 
     /** The Libelle. */

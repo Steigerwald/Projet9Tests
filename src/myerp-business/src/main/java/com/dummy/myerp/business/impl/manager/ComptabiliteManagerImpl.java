@@ -184,7 +184,8 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
      */
     public void checkEcritureComptableContext(EcritureComptable pEcritureComptable) throws FunctionalException {
         // ===== RG_Compta_6 : La référence d'une écriture comptable doit être unique
-        if (StringUtils.isNoneEmpty(pEcritureComptable.getReference())) {
+
+                if (StringUtils.isNoneEmpty(pEcritureComptable.getReference())) {
             try {
                 // Recherche d'une écriture ayant la même référence
                 EcritureComptable vECRef = getDaoProxy().getComptabiliteDao().getEcritureComptableByRef(
@@ -225,6 +226,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
     /**
      * {@inheritDoc}
      */
+
     @Override
     public void updateEcritureComptable(EcritureComptable pEcritureComptable) throws FunctionalException {
         this.checkEcritureComptable(pEcritureComptable);
