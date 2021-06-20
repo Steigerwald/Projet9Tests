@@ -61,11 +61,11 @@
         <spring.version>4.3.7.RELEASE</spring.version>
 
         <!-- Avant -->
-        <sonar.projectKey>Steigerwald_Projet9Tests</sonar.projectKey>
+        <!--<sonar.projectKey>Steigerwald_Projet9Tests</sonar.projectKey>
         <sonar.moduleKey>${project.artifactId}:${project.artifactId}</sonar.moduleKey>
         <sonar.organization>steigerwald</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.login>9c9d2f7ee5b658c95962fb8beff949dd8e103a58</sonar.login>
+        <sonar.login>9c9d2f7ee5b658c95962fb8beff949dd8e103a58</sonar.login>-->
 
         <!--=======command  mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -->
         <sonar.language>java</sonar.language>
@@ -492,13 +492,13 @@
         </plugins>
 
         <pluginManagement>
-            <plugins>
+           <!--><plugins>
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>3.8.0.2131</version>
                 </plugin>
-            </plugins>
+            </plugins>-->
         </pluginManagement>
     </build>
 
