@@ -284,7 +284,6 @@ public class ComptabiliteManagerImplTest {
                 null, null,
                 new BigDecimal(123)));
         vEcritureComptable.setReference("AC-2020/000010");
-        //objectToTest.checkEcritureComptableUnit(vEcritureComptable);
         Assertions.assertThatThrownBy(() -> objectToTest.checkEcritureComptableUnit(vEcritureComptable))
                 .isInstanceOf(FunctionalException.class)
                 .hasMessageContaining(Constant.ECRITURE_COMPTABLE_MANAGEMENT_RULE_ERRORMSG);

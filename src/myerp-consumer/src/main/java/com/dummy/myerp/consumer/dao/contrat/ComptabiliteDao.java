@@ -90,4 +90,5 @@ public interface ComptabiliteDao {
     void insertNewSequence(SequenceEcritureComptable sequenceEcritureComptable);
 
     void updateSequenceEcritureComptable(SequenceEcritureComptable sequenceEcritureComptable);
+
 }

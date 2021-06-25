@@ -199,7 +199,6 @@ public class ComptabiliteDaoTest {
 	@Test
 	public void checkGetEcritureComptableByRef() throws ParseException, NotFoundException {
 		String ref = "BQ-2016/00005";
-		
 		EcritureComptable ecritureComptable = new EcritureComptable();
 		ecritureComptable.setId(-5);
 		ecritureComptable.setJournal(new JournalComptable("BQ","Banque"));
@@ -267,7 +266,6 @@ public class ComptabiliteDaoTest {
 		SequenceEcritureComptable sequenceEcritureComptable2 = comptabiliteDao.getSequenceByYearAndJournalCode(2020,"VE");
 
 		assertThat(sequenceEcritureComptable2.toString()).isEqualTo(sequenceEcritureComptable.toString());
-
 	}
 
 	@Test
@@ -275,12 +273,12 @@ public class ComptabiliteDaoTest {
 	@Rollback
 	public void checkUpdateSequenceEcritureComptable() throws NotFoundException {
 		JournalComptable journal =new JournalComptable();
-		journal.setCode("BQ");
-		SequenceEcritureComptable sequenceEcritureComptable = new SequenceEcritureComptable(2016,journal, 2);
+		journal.setCode("VE");
+		SequenceEcritureComptable sequenceEcritureComptable = new SequenceEcritureComptable(2020,journal, 2);
 
 		comptabiliteDao.updateSequenceEcritureComptable(sequenceEcritureComptable);
 		
-		sequenceEcritureComptable = comptabiliteDao.getSequenceByYearAndJournalCode(2016,"BQ");
+		sequenceEcritureComptable = comptabiliteDao.getSequenceByYearAndJournalCode(2020,"VE");
 		assertThat(sequenceEcritureComptable).extracting("derniereValeur").isEqualTo(2);
 	}
 
@@ -296,6 +294,7 @@ public class ComptabiliteDaoTest {
 
 		EcritureComptable vEcritureComptable;
 		vEcritureComptable = new EcritureComptable();
+		//vEcritureComptable.setId(6);
 		vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		vEcritureComptable.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-12-31"));
 		vEcritureComptable.setLibelle("Achat");
@@ -326,7 +325,7 @@ public class ComptabiliteDaoTest {
 	@Rollback
 	public void checkUpdateEcritureComptable() throws ParseException, NotFoundException {
 		EcritureComptable ecritureComptable = new EcritureComptable();
-		ecritureComptable.setId(-3);
+		ecritureComptable.setId(1);
 		ecritureComptable.setJournal(new JournalComptable("BQ","Banque"));
 		ecritureComptable.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-12-29"));
 		ecritureComptable.setLibelle("Paiement Facture F110001 changement");
@@ -345,29 +344,28 @@ public class ComptabiliteDaoTest {
 //		assertThat(eComptableTest).usingRecursiveComparison().isEqualTo(ecritureComptable);
 		assertThat(eComptableTest.toString()).isEqualTo(ecritureComptable.toString());
 	}
-	@Test 
+
+	@Test
 	@Transactional
 	@Rollback
 	public void checkDeleteEcritureComptable() throws NotFoundException {
-		
-		int id = -2;
-		EcritureComptable ecritureComptable = comptabiliteDao.getEcritureComptable(id);
-		
+		int id=-1;
+		EcritureComptable ecritureComptable =comptabiliteDao.getEcritureComptable(id);
 		List<EcritureComptable> eList = comptabiliteDao.getListEcritureComptable();
 		int sizeEListBefore = eList.size();
 		
 		//comptabiliteDao.loadListLigneEcriture(ecritureComptable);
 		
 		//int sizeListLigneBefore = ecritureComptable.getListLigneEcriture().size();
-		
+
+		//EcritureComptable ecritureComptable =comptabiliteDao.getEcritureComptable(1);
 		comptabiliteDao.deleteEcritureComptable(id);
 		
 		eList = comptabiliteDao.getListEcritureComptable();
-		int sizeExpected = sizeEListBefore - 1;
+		int sizeExpected = (sizeEListBefore - 1);
 		
 		assertThat(eList.size()).isEqualTo(sizeExpected);
 		assertThat(eList).usingRecursiveFieldByFieldElementComparator().doesNotContain(ecritureComptable);
 	}
-
 
 }
