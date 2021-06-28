@@ -68,7 +68,7 @@
         <sonar.login>9c9d2f7ee5b658c95962fb8beff949dd8e103a58</sonar.login>-->
 
         <!--=======command  mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -->
-        <sonar.language>java</sonar.language>
+        <!--<sonar.language>java</sonar.language>-->
         <!-- -->
 
         <!-- Après -->
@@ -468,19 +468,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.8.0.2131</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sonar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <!--
             Launch reports with command "mvn site"
              -->
@@ -492,13 +479,6 @@
         </plugins>
 
         <pluginManagement>
-           <!--><plugins>
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.8.0.2131</version>
-                </plugin>
-            </plugins>-->
         </pluginManagement>
     </build>
 
