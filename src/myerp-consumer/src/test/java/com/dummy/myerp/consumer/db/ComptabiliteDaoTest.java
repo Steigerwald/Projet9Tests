@@ -243,9 +243,22 @@ public class ComptabiliteDaoTest {
 		String code = "JS";
 		int annee = 2014;
 		comptabiliteDao.getSequenceByYearAndJournalCode(annee,code);
-	} 
-
+	}
 	///====================
+
+	@Test
+	@Transactional
+	@Rollback
+	public void checkUpdateSequenceEcritureComptable() throws NotFoundException {
+
+		SequenceEcritureComptable sequenceEcritureComptable1 = comptabiliteDao.getSequenceByYearAndJournalCode(2016,"OD");
+		SequenceEcritureComptable sequenceEcritureComptable2 = comptabiliteDao.getSequenceByYearAndJournalCode(2016,"OD");
+		sequenceEcritureComptable2.setDerniereValeur(2);
+		comptabiliteDao.updateSequenceEcritureComptable(sequenceEcritureComptable2);
+		SequenceEcritureComptable sequenceEcritureComptable = comptabiliteDao.getSequenceByYearAndJournalCode(2016,"OD");
+		comptabiliteDao.updateSequenceEcritureComptable(sequenceEcritureComptable1);
+		assertThat(sequenceEcritureComptable).extracting("derniereValeur").isEqualTo(2);
+	}
 /*
 	@Test
 	@Transactional
@@ -255,33 +268,18 @@ public class ComptabiliteDaoTest {
 		JournalComptable journal =new JournalComptable();
 		journal.setCode("VE");
 		SequenceEcritureComptable sequenceEcritureComptable = new SequenceEcritureComptable();
-		//sequenceEcritureComptable.setJournalCode("VE");
 		sequenceEcritureComptable.setJournal(journal);
 		sequenceEcritureComptable.setAnnee(2020);
 		sequenceEcritureComptable.setDerniereValeur(1);
 		comptabiliteDao.insertNewSequence(sequenceEcritureComptable);
-
+		SequenceEcritureComptable sequenceEcritureComptable1 = comptabiliteDao.getSequenceByYearAndJournalCode(2020,"VE");
 		SequenceEcritureComptable sequenceEcritureComptable2 = comptabiliteDao.getSequenceByYearAndJournalCode(2020,"VE");
-		assertThat(sequenceEcritureComptable2.toString()).isEqualTo(sequenceEcritureComptable.toString());
-	}
-
- */
-/*
-	@Test
-	@Transactional
-	@Rollback
-	public void checkUpdateSequenceEcritureComptable() throws NotFoundException {
-		SequenceEcritureComptable sequenceEcritureComptable2 = comptabiliteDao.getSequenceByYearAndJournalCode(2020,"VE");
-		//JournalComptable journal =new JournalComptable();
-		//journal.setCode("VE");
-		sequenceEcritureComptable2.setAnnee(2019);
-		sequenceEcritureComptable2.setDerniereValeur(2);
-		//SequenceEcritureComptable sequenceEcritureComptable = new SequenceEcritureComptable(2017,journal, 2);
+		sequenceEcritureComptable2.setAnnee(2021);
+		JournalComptable journal2 =new JournalComptable();
+		journal2.setCode("BQ");
+		sequenceEcritureComptable2.setJournal(journal2);
 		comptabiliteDao.updateSequenceEcritureComptable(sequenceEcritureComptable2);
-		SequenceEcritureComptable sequenceEcritureComptable = comptabiliteDao.getSequenceByYearAndJournalCode(2019,"VE");
-		sequenceEcritureComptable2.setAnnee(2017);
-		comptabiliteDao.updateSequenceEcritureComptable(sequenceEcritureComptable2);
-		assertThat(sequenceEcritureComptable).extracting("derniereValeur").isEqualTo(2);
+		assertThat(sequenceEcritureComptable1.toString()).isEqualTo(sequenceEcritureComptable.toString());
 	}
 
  */
@@ -321,56 +319,46 @@ public class ComptabiliteDaoTest {
 		assertThat(ecritureComptable.toString()).isEqualTo(vEcritureComptable.toString());
 	}
 
-/*
 	@Test
 	@Transactional
 	@Rollback
 	public void checkUpdateEcritureComptable() throws ParseException, NotFoundException {
-		EcritureComptable ecritureComptable = new EcritureComptable();
-		//ecritureComptable.setId(1);
-		ecritureComptable.setJournal(new JournalComptable("BQ","Banque"));
-		ecritureComptable.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-12-29"));
-		ecritureComptable.setLibelle("Paiement Facture F110001 changement");
-		ecritureComptable.setReference("BQ-2016/00006");
-		
+
+		EcritureComptable ecritureComptable1 =comptabiliteDao.getEcritureComptableByRef("BQ-2016/00005");
+		EcritureComptable ecritureComptable2 =comptabiliteDao.getEcritureComptableByRef("BQ-2016/00005");
+		ecritureComptable2.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2019-12-29"));
+		ecritureComptable2.setLibelle("Cartouches d'imprimante");
+		ecritureComptable2.getListLigneEcriture().clear();
 		LigneEcritureComptable ligneEcritureComptable1 = new LigneEcritureComptable(new CompteComptable(401, "Fournisseurs"), null, new BigDecimal("52.74"), null);
 		LigneEcritureComptable ligneEcritureComptable2 = new LigneEcritureComptable(new CompteComptable(512, "Banque"), null, null, new BigDecimal("52.74"));
 		
-		ecritureComptable.getListLigneEcriture().add(ligneEcritureComptable1);
-		ecritureComptable.getListLigneEcriture().add(ligneEcritureComptable2);
+		ecritureComptable2.getListLigneEcriture().add(ligneEcritureComptable1);
+		ecritureComptable2.getListLigneEcriture().add(ligneEcritureComptable2);
 		
-		comptabiliteDao.updateEcritureComptable(ecritureComptable);
-		
-		EcritureComptable eComptableTest =comptabiliteDao.getEcritureComptableByRef("BQ-2016/00006");
-		
+		comptabiliteDao.updateEcritureComptable(ecritureComptable2);
+		EcritureComptable eComptableTest =comptabiliteDao.getEcritureComptableByRef("BQ-2016/00005");
+		comptabiliteDao.updateEcritureComptable(ecritureComptable1);
+
 //		assertThat(eComptableTest).usingRecursiveComparison().isEqualTo(ecritureComptable);
-		assertThat(eComptableTest.toString()).isEqualTo(ecritureComptable.toString());
+		assertThat(eComptableTest.toString()).isEqualTo(ecritureComptable2.toString());
 	}
 
- */
 
 	@Test
 	@Transactional
 	@Rollback
 	public void checkDeleteEcritureComptable() throws NotFoundException, ParseException {
 		EcritureComptable ecritureComptable = new EcritureComptable();
-		//ecritureComptable.setId(1);
 		ecritureComptable.setJournal(new JournalComptable("OD","Operations diverses"));
 		ecritureComptable.setDate(new SimpleDateFormat("yyyy-MM-dd").parse("2020-12-01"));
 		ecritureComptable.setLibelle("Paiement Facture F110001 changement");
 		ecritureComptable.setReference("OD-2020/00010");
-		//int id=-1;
+
 		comptabiliteDao.insertEcritureComptable(ecritureComptable);
 		int id=ecritureComptable.getId();
-		//EcritureComptable ecritureComptable =comptabiliteDao.getEcritureComptable(id);
 		List<EcritureComptable> eList = comptabiliteDao.getListEcritureComptable();
 		int sizeEListBefore = eList.size();
-		
-		//comptabiliteDao.loadListLigneEcriture(ecritureComptable);
-		
-		//int sizeListLigneBefore = ecritureComptable.getListLigneEcriture().size();
 
-		//EcritureComptable ecritureComptable =comptabiliteDao.getEcritureComptable(1);
 		comptabiliteDao.deleteEcritureComptable(id);
 		
 		eList = comptabiliteDao.getListEcritureComptable();
