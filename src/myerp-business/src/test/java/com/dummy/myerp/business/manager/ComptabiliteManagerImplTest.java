@@ -24,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionStatus;
 
-import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,7 +32,6 @@ import java.time.ZoneId;
 import java.util.*;
 
 @RunWith(MockitoJUnitRunner.class)
-//@ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
 public class ComptabiliteManagerImplTest {
 
