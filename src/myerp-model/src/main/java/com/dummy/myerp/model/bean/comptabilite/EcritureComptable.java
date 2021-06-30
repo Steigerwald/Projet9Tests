@@ -2,7 +2,6 @@ package com.dummy.myerp.model.bean.comptabilite;
 
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +26,7 @@ public class EcritureComptable {
     /** Journal comptable */
     @NotNull private JournalComptable journal;
     /** The Reference. */
-    @Pattern(regexp = "^[A-Z]{1,5}-\\d{4}/\\d{5}")
+    @Pattern(regexp = "^[A-Z]{1,2}-\\d{4}/\\d{5}")
     private String reference;
 
     /** The Date. */
@@ -114,8 +113,12 @@ public class EcritureComptable {
      * @return boolean
      */
     public boolean isEquilibree() {
-        boolean vRetour = this.getTotalDebit().equals(getTotalCredit());
-        return vRetour;
+        int comparaison = this.getTotalDebit().compareTo(getTotalCredit());
+        if (comparaison == 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     // ==================== Méthodes ====================

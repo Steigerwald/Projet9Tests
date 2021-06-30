@@ -259,7 +259,7 @@ public class ComptabiliteDaoTest {
 		comptabiliteDao.updateSequenceEcritureComptable(sequenceEcritureComptable1);
 		assertThat(sequenceEcritureComptable).extracting("derniereValeur").isEqualTo(2);
 	}
-/*
+
 	@Test
 	@Transactional
 	@Rollback
@@ -267,22 +267,15 @@ public class ComptabiliteDaoTest {
 
 		JournalComptable journal =new JournalComptable();
 		journal.setCode("VE");
+		int nombreAleatoitre = (int)(1 + (Math.random() * (5001 - 1)));
 		SequenceEcritureComptable sequenceEcritureComptable = new SequenceEcritureComptable();
 		sequenceEcritureComptable.setJournal(journal);
-		sequenceEcritureComptable.setAnnee(2020);
-		sequenceEcritureComptable.setDerniereValeur(1);
+		sequenceEcritureComptable.setAnnee(nombreAleatoitre);
+		sequenceEcritureComptable.setDerniereValeur(22);
 		comptabiliteDao.insertNewSequence(sequenceEcritureComptable);
-		SequenceEcritureComptable sequenceEcritureComptable1 = comptabiliteDao.getSequenceByYearAndJournalCode(2020,"VE");
-		SequenceEcritureComptable sequenceEcritureComptable2 = comptabiliteDao.getSequenceByYearAndJournalCode(2020,"VE");
-		sequenceEcritureComptable2.setAnnee(2021);
-		JournalComptable journal2 =new JournalComptable();
-		journal2.setCode("BQ");
-		sequenceEcritureComptable2.setJournal(journal2);
-		comptabiliteDao.updateSequenceEcritureComptable(sequenceEcritureComptable2);
+		SequenceEcritureComptable sequenceEcritureComptable1 = comptabiliteDao.getSequenceByYearAndJournalCode(nombreAleatoitre,"VE");
 		assertThat(sequenceEcritureComptable1.toString()).isEqualTo(sequenceEcritureComptable.toString());
 	}
-
- */
 
 
 	@Test
