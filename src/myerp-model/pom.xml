@@ -36,10 +36,10 @@
     <!-- =============================================================== -->
     <!-- Properties -->
     <!-- =============================================================== -->
-    <properties>
+    <!--<properties>
         <sonar.projectKey>projet_B4_FR-myerp-model</sonar.projectKey>
         <sonar.coverage.jacoco.xmlReportPaths>${basedir}\target\site\jacoco\jacoco.xml, ${basedir}/../myerp-business/target/site/jacoco-aggregate/jacoco.xml, ${basedir}/../myerp-consumer/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-    </properties>
+    </properties>-->
 
     <!-- =============================================================== -->
     <!-- Dependencies -->
@@ -62,20 +62,17 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>3.7.7</version>
+            <version>3.8.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -97,9 +94,41 @@
             <version>3.1.1</version>
         </dependency>
 
-
     </dependencies>
 
+
+    <!-- =============================================================== -->
+    <!-- Profiles -->
+    <!-- =============================================================== -->
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.5</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <!-- =============================================================== -->
     <!-- Build -->
@@ -113,7 +142,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M5</version>
             </plugin>
         </plugins>
     </build>

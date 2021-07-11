@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.dummy.myerp</groupId>
+        <artifactId>myerp</artifactId>
+        <version>1.x.x-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <!-- ===== Maven ===== -->
+    <artifactId>myerp-coverage</artifactId>
+    <!-- <packaging>war</packaging> -->
+
+    <!-- ===== General information ===== -->
+    <name>${project.artifactId}</name>
+
+    <!-- =============================================================== -->
+    <!-- Distrubution management -->
+    <!-- =============================================================== -->
+    <distributionManagement>
+        <site>
+            <id>site</id>
+            <name>site-doc</name>
+            <url>file://${basedir}/../target/site-doc/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+
+    <properties>
+        <!-- <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            <maven.compiler.source>1.8</maven.compiler.source> <maven.compiler.target>1.8</maven.compiler.target> -->
+
+        <!-- Début -->
+
+        <build.directory.myerp-business>../myerp-business/target</build.directory.myerp-business>
+        <build.directory.myerp-consumer>../myerp-consumer/target</build.directory.myerp-consumer>
+        <build.directory.myerp-model>../myerp-model/target</build.directory.myerp-model>
+        <build.directory.myerp-technical>../myerp-technical/target</build.directory.myerp-technical>
+        <!-- <build.directory.projectb>../projectB/target</build.directory.projectb> -->
+
+        <classes.directory.myerp-business>../myerp-business/target/classes</classes.directory.myerp-business>
+        <classes.directory.myerp-consumer>../myerp-consumer/target/classes</classes.directory.myerp-consumer>
+        <classes.directory.myerp-model>../myerp-model/target/classes</classes.directory.myerp-model>
+        <classes.directory.myerp-technical>../myerp-technical/target/classes</classes.directory.myerp-technical>
+        <!-- <classes.directory.projectb>../projectB/target/classes</classes.directory.projectb> -->
+
+        <sources.directory.myerp-business>../myerp-business/src/main/java</sources.directory.myerp-business>
+        <sources.directory.myerp-consumer>../myerp-consumer/src/main/java</sources.directory.myerp-consumer>
+        <sources.directory.myerp-model>../myerp-model/src/main/java</sources.directory.myerp-model>
+        <sources.directory.myerp-technical>../myerp-technical/src/main/java</sources.directory.myerp-technical>
+        <!-- <sources.directory.projectb>../projectB/src/main/java</sources.directory.projectb> -->
+
+        <generated-sources.directory.myerp-business>../myerp-business/target/generated-sources/annotations</generated-sources.directory.myerp-business>
+        <generated-sources.directory.myerp-consumer>../myerp-consumer/target/generated-sources/annotations</generated-sources.directory.myerp-consumer>
+        <generated-sources.directory.myerp-model>../myerp-model/target/generated-sources/annotations</generated-sources.directory.myerp-model>
+        <generated-sources.directory.myerp-technical>../myerp-technical/target/generated-sources/annotations</generated-sources.directory.myerp-technical>
+        <!-- <generated-sources.directory.projectb>../projectB/target/generated-sources/annotations</generated-sources.directory.projectb> -->
+        <!-- Fin -->
+
+    </properties>
+
+    <dependencies>
+
+
+        <!-- ===== Modules ===== -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>myerp-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>myerp-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>myerp-technical</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>myerp-business</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <!-- Après -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>report</id>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile> <id>coverage</id> <build> <plugins> <plugin> <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId> <version>0.8.5</version> <executions>
+                <execution> <id>prepare-agent</id> <goals> <goal>prepare-agent</goal> </goals>
+                </execution> <execution> <id>report</id> <goals> <goal>report</goal> </goals>
+            </execution> </executions> </plugin> </plugins> </build> </profile>
+        <!-- -->
+    </profiles>
+</project>
