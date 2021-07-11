@@ -87,7 +87,7 @@
     <!-- =============================================================== -->
     <profiles>
         <!-- profile pour avoir le coverage avec jacoco"-->
-        <profile>
+        <!--<profile>
             <id>coverage</id>
             <build>
                 <plugins>
@@ -126,17 +126,77 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+        </profile>-->
 
         <!-- Profile utilisé pour lancer les tests d'intégration de la couche Business -->
-        <profile>
+        <!--<profile>
             <id>test-business</id>
-        </profile>
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>build-helper-maven-plugin</artifactId>
+                            <version>3.0.0</version>
+                            <executions>
+                                <execution>
+                                    <id>add-test-source</id>
+                                    <phase>generate-test-sources</phase>
+                                    <goals>
+                                        <goal>add-test-source</goal>
+                                    </goals>
+                                    <configuration>
+                                        <sources>-->
+                                            <!--<source>src/test-business/java</source>-->
+                                            <!--<source>src/test/java</source>
+                                        </sources>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                    <testResources>
+                        <testResource>
+                            <directory>src/test/resources</directory>
+                        </testResource>-->
+                        <!--<testResource>
+                            <directory>src/test-business/resources</directory>
+                        </testResource>-->
+                    <!--</testResources>
+                </build>
+        </profile>-->
 
         <!-- Profile utilisé pour lancer les tests d'intégration de la couche Consumer -->
-        <profile>
+        <!--<profile>
             <id>test-consumer</id>
-        </profile>
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>build-helper-maven-plugin</artifactId>
+                            <version>3.0.0</version>
+                            <executions>
+                                <execution>
+                                    <id>add-test-source</id>
+                                    <phase>generate-test-sources</phase>
+                                    <goals>
+                                        <goal>add-test-source</goal>
+                                    </goals>
+                                    <configuration>
+                                        <sources>
+                                            <source>src/test/java</source>
+                                        </sources>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                    <testResources>
+                        <testResource>
+                            <directory>src/test/resources</directory>
+                        </testResource>
+                    </testResources>
+                </build>
+        </profile>-->
     </profiles>
 
 
@@ -431,9 +491,6 @@
         </executions>
     </plugin>-->
             <plugin>
-                <!--
-            Execute JaCoCo report and save it in target/site/jacoco/index.html
-             -->
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.5</version>
