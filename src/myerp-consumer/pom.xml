@@ -33,15 +33,6 @@
 
 
     <!-- =============================================================== -->
-    <!-- Properties -->
-    <!-- =============================================================== -->
-    <!--<properties>
-        <sonar.projectKey>projet_B4_FR-myerp-consumer</sonar.projectKey>
-        <sonar.coverage.jacoco.xmlReportPaths>${basedir}\target\site\jacoco\jacoco.xml, ${basedir}/../myerp-business/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-    </properties>-->
-
-
-    <!-- =============================================================== -->
     <!-- Dependencies -->
     <!-- =============================================================== -->
     <dependencies>
